@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Http" Version="8.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StackExchange.Redis" Version="2.8.24" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Skinet.Core\Skinet.Core.csproj" />
+    <ProjectReference Include="..\Skinet.Repository\Skinet.Repository.csproj" />
+    <ProjectReference Include="..\Skinet.Service\Skinet.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Baskets\Commands\Create\" />
+    <Folder Include="Features\Baskets\Commands\Delete\" />
+    <Folder Include="Features\Baskets\Commands\Update\" />
+    <Folder Include="Features\Baskets\Queries\Get\" />
+    <Folder Include="Features\Baskets\Queries\List\" />
+    <Folder Include="Features\Orders\Commands\Create\" />
+    <Folder Include="Features\Orders\Commands\Delete\" />
+    <Folder Include="Features\Orders\Commands\Update\" />
+    <Folder Include="Features\Orders\Queries\Get\" />
+    <Folder Include="Features\Orders\Queries\List\" />
+    <Folder Include="Features\Payments\Commands\Create\" />
+    <Folder Include="Features\Payments\Commands\Delete\" />
+    <Folder Include="Features\Payments\Commands\Update\" />
+    <Folder Include="Features\Payments\Queries\Get\" />
+    <Folder Include="Features\Payments\Queries\List\" />
+  </ItemGroup>
+
+</Project>
