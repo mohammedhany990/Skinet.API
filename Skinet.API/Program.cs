@@ -93,7 +93,7 @@ namespace Skinet.API
 
             // Configure MediatR
             builder.Services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssemblies(/*AppDomain.CurrentDomain.GetAssemblies()*/ Assembly.GetExecutingAssembly()));
+                cfg.RegisterServicesFromAssemblies( Assembly.GetExecutingAssembly()));
 
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));

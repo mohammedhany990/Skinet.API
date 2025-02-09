@@ -21,6 +21,7 @@ namespace Skinet.API.ExtensionMethods
             services.AddScoped(typeof(IProductService), typeof(ProductService));
             services.AddScoped(typeof(IProductTypeService), typeof(ProductTypeService));
             services.AddScoped(typeof(IProductBrandService), typeof(ProductBrandService));
+            services.AddScoped(typeof(IBasketService), typeof(BasketService));
 
 
             services.AddAutoMapper(typeof(MappingProfile));

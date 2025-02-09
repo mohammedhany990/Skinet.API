@@ -29,10 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Baskets\Commands\Create\" />
-    <Folder Include="Features\Baskets\Commands\Delete\" />
     <Folder Include="Features\Baskets\Commands\Update\" />
-    <Folder Include="Features\Baskets\Queries\Get\" />
     <Folder Include="Features\Baskets\Queries\List\" />
     <Folder Include="Features\Orders\Commands\Create\" />
     <Folder Include="Features\Orders\Commands\Delete\" />

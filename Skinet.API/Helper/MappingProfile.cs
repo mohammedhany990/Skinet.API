@@ -4,6 +4,8 @@ using Skinet.API.DTOs.Basket;
 using Skinet.API.DTOs.Folder;
 using Skinet.API.DTOs.Identity;
 using Skinet.API.DTOs.Order;
+using Skinet.API.Features.Baskets.Commands.Create;
+using Skinet.API.Features.Baskets.Queries;
 using Skinet.API.Features.ProductBrands.Commands.Create;
 using Skinet.API.Features.ProductBrands.Queries.Responses;
 using Skinet.API.Features.Products.Commands.Create;
@@ -62,6 +64,9 @@ namespace Skinet.API.Helper
 
             CreateMap<CreateProductTypeCommand, ProductType>();
             CreateMap<CreateProductBrandCommand, ProductBrand>();
+            CreateMap<CustomerBasket, BasketResponse>().ReverseMap();
+            CreateMap<BasketItemModel, BasketItem>();
+            CreateMap<CreateBasketCommand, CustomerBasket>().ReverseMap();
         }
 
 

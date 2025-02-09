@@ -1,43 +1,51 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs.Folder;
+using Skinet.API.Errors;
+using Skinet.API.Features.Baskets.Commands.Create;
+using Skinet.API.Features.Baskets.Commands.Delete;
+using Skinet.API.Features.Baskets.Queries;
+using Skinet.API.Features.Baskets.Queries.Get;
 using Skinet.Core.Entities.Basket;
+using Skinet.Core.Helper;
 using Skinet.Core.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Skinet.API.Controllers
 {
-    
+
     public class BasketController : ApiBaseController
     {
-        private readonly IBasketRepository _basketRepository;
-        private readonly IMapper _mapper;
+       
+        private readonly IMediator _mediator;
 
-        public BasketController(IBasketRepository basketRepository, IMapper mapper)
+        public BasketController(IMediator mediator)
         {
-            _basketRepository = basketRepository;
-            _mapper = mapper;
+            _mediator = mediator;
         }
+       
+
         [HttpGet]
-        public async Task<ActionResult<CustomerBasket>> GetBasketById(string id)
+        public async Task<ActionResult<BaseResponse<BasketResponse>>> GetBasketById(string id)
         {
-            var basket = await _basketRepository.GetBasketAsync(id);
-            return Ok(basket ?? new CustomerBasket(id));
+            var response = await _mediator.Send(new GetByIdBasketQuery(id));
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult<CustomerBasket>> UpdateOrCreateBasket(CustomerBasketDto basket)
+        public async Task<ActionResult<BaseResponse<string>>> UpdateOrCreateBasket(CreateBasketCommand command)
         {
-            var customerBasket = _mapper.Map<CustomerBasketDto, CustomerBasket>(basket);
-
-            var updatedBasket = await _basketRepository.UpdateBasketAsync(customerBasket);
-            return Ok(updatedBasket);
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
         [HttpDelete]
-        public async Task<ActionResult<bool>> DeleteBasketAsync(string id)
+        public async Task<ActionResult<BaseResponse<string>>> DeleteBasketAsync(string id)
         {
-           return await _basketRepository.DeleteBasketAsync(id);
+            var response = await _mediator.Send(new DeleteBasketCommand(id));
+            return Ok(response);
         }
     }
 }

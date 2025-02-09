@@ -29,10 +29,9 @@ namespace Skinet.Repository
             return data;
         }
 
-        public async Task<CustomerBasket?> UpdateBasketAsync(CustomerBasket basket)
+        public async Task<CustomerBasket?> UpdateOrCreateBasketAsync(CustomerBasket basket)
         {
-            var newBasket = await
-                _database.StringSetAsync(basket.Id, JsonSerializer.Serialize(basket), TimeSpan.FromDays(15));
+            var newBasket = await _database.StringSetAsync(basket.Id, JsonSerializer.Serialize(basket), TimeSpan.FromDays(15));
 
             return !newBasket ? null : await GetBasketAsync(basket.Id);
         }
@@ -41,5 +40,7 @@ namespace Skinet.Repository
         {
             return await _database.KeyDeleteAsync(basketId);
         }
+
+
     }
 }

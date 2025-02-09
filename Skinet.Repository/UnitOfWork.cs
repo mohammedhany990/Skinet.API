@@ -7,16 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Skinet.Core.Entities;
 using Skinet.Repository.Data;
+using StackExchange.Redis;
 
 namespace Skinet.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
+        public IBasketRepository BasketRepository { get; set; }
+
         private readonly SkinetDbContext _dbContext;
+        private readonly IConnectionMultiplexer _redis;
         private Hashtable repositories = new Hashtable();
-        public UnitOfWork(SkinetDbContext dbContext)
+
+        public UnitOfWork(SkinetDbContext dbContext, IConnectionMultiplexer redis)
         {
             _dbContext = dbContext;
+            _redis = redis;
+            BasketRepository = new BasketRepository(_redis);
         }
 
         public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity
@@ -39,6 +46,7 @@ namespace Skinet.Repository
             return await _dbContext.SaveChangesAsync();
         }
 
+       
         public async ValueTask DisposeAsync()
         {
             await _dbContext.DisposeAsync();
