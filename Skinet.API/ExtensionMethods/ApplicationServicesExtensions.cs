@@ -4,7 +4,6 @@ using Skinet.API.Errors;
 using Skinet.API.Helper;
 using Skinet.Core.Interfaces;
 using Skinet.Repository;
-using Skinet.Service;
 using Skinet.Service.Implementation;
 using Skinet.Service.Interfaces;
 
@@ -22,6 +21,7 @@ namespace Skinet.API.ExtensionMethods
             services.AddScoped(typeof(IProductTypeService), typeof(ProductTypeService));
             services.AddScoped(typeof(IProductBrandService), typeof(ProductBrandService));
             services.AddScoped(typeof(IBasketService), typeof(BasketService));
+            services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
 
 
             services.AddAutoMapper(typeof(MappingProfile));

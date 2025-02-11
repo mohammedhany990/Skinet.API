@@ -1,12 +1,11 @@
-﻿namespace Skinet.Core.Specifications
+﻿namespace Skinet.Core.Specifications.Order
 {
-    public class OrderWithPaymentIntentSpecification : BaseSpecification<Entities.Order.Order>
+    internal class OrderWithPaymentIntentSpecification : BaseSpecification<Entities.Order.Order>
     {
         public OrderWithPaymentIntentSpecification(string paymentId)
             : base(O => O.PaymentIntentId == paymentId)
         {
 
         }
-
     }
 }

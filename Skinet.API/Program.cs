@@ -121,7 +121,7 @@ namespace Skinet.API
             });
 
 
-            #region Cors
+            #region Allow Dynamic Localhost Policy
             builder.Services.AddCors(options =>
                {
                    options.AddPolicy("Policy", policy =>
@@ -144,7 +144,8 @@ namespace Skinet.API
                    });
                });
             #endregion
-           
+
+            builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 

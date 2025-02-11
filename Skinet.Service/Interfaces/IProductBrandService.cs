@@ -9,7 +9,7 @@ namespace Skinet.Service.Interfaces
 {
     public interface IProductBrandService
     {
-        Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync();
+        Task<List<ProductBrand>> GetProductBrandsAsync();
         Task<ProductBrand> GetProductBrandByIdAsync(int id);
         Task<ProductBrand> GetProductBrandByNameAsync(string name);
 

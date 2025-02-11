@@ -18,7 +18,7 @@ namespace Skinet.Service.Implementation
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IReadOnlyList<Product>> GetProductsAsync(ProductSpecificationParameters? parameters)
+        public async Task<List<Product>> GetProductsAsync(ProductSpecificationParameters? parameters)
         {
             var products = await _unitOfWork.Repository<Product>()
                 .GetAllWithSpecAsync(new ProductWithBrandAndTypeSpecification(parameters));

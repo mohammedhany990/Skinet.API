@@ -9,7 +9,7 @@ namespace Skinet.Service.Interfaces
 {
     public interface IProductTypeService
     {
-        Task<IReadOnlyList<ProductType>> GetProductTypesAsync();
+        Task<List<ProductType>> GetProductTypesAsync();
         Task<ProductType> GetProductTypeByIdAsync(int id);
         Task<ProductType> GetProductTypeByNameAsync(string name);
         Task<string> AddProductTypeAsync(ProductType productType);

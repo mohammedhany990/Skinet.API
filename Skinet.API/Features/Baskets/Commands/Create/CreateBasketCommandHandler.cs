@@ -19,6 +19,7 @@ namespace Skinet.API.Features.Baskets.Commands.Create
         public async Task<BaseResponse<string>> Handle(CreateBasketCommand request, CancellationToken cancellationToken)
         {
             var mappedBasket = _mapper.Map<CustomerBasket>(request);
+
             var basket = await _basketService.UpdateOrCreateBasketAsync(mappedBasket);
 
             if (basket is null || string.IsNullOrEmpty(basket.Id))

@@ -17,7 +17,7 @@ namespace Skinet.Service.Implementation
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync()
+        public async Task<List<ProductBrand>> GetProductBrandsAsync()
         {
             return await _unitOfWork.Repository<ProductBrand>().GetAllAsync();
         }

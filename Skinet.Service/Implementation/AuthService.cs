@@ -11,13 +11,13 @@ using Microsoft.IdentityModel.Tokens;
 using Skinet.Core.Entities.Identity;
 using Skinet.Core.Interfaces;
 
-namespace Skinet.Service
+namespace Skinet.Service.Implementation
 {
-    public class TokenService : ITokenService
+    public class AuthService : IAuthService
     {
         private readonly IConfiguration _configuration;
 
-        public TokenService(IConfiguration configuration)
+        public AuthService(IConfiguration configuration)
         {
             _configuration = configuration;
         }

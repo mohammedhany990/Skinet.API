@@ -18,12 +18,12 @@ namespace Skinet.API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly ITokenService _tokenService;
+        private readonly IAuthService _tokenService;
         private readonly IMapper _mapper;
 
         public AccountController(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            ITokenService tokenService,
+            IAuthService tokenService,
             IMapper mapper)
         {
             _userManager = userManager;

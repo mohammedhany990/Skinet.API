@@ -1,11 +1,10 @@
-﻿using Skinet.Core.Entities.Order;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Skinet.Core.Specifications
+namespace Skinet.Core.Specifications.Order
 {
     public class OrderSpecification : BaseSpecification<Entities.Order.Order>
     {
@@ -17,11 +16,11 @@ namespace Skinet.Core.Specifications
             ApplyOrderBy(O => O.OrderDate);
         }
 
-        public OrderSpecification(string buyerEmail, int orderId) :
-            base(O => O.BuyerEmail == buyerEmail && O.Id == orderId)
+        public OrderSpecification(string buyerEmail, int orderId)
+            : base(O => O.BuyerEmail == buyerEmail && O.Id == orderId)
         {
             Includes.Add(O => O.DeliveryMethod);
             Includes.Add(O => O.OrderItems);
         }
-    }
+}
 }

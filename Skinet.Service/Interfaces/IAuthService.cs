@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Skinet.Core.Interfaces
 {
-    public interface ITokenService
+    public interface IAuthService
     {
         Task<JwtSecurityToken> CreateTokenAsync(AppUser user, UserManager<AppUser> userManager);
 

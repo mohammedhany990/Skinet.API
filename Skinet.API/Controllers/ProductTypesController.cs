@@ -31,7 +31,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet("types")]
-        public async Task<ActionResult<BaseResponse<IReadOnlyList<ProductTypeResponse>>>> Types()
+        public async Task<ActionResult<BaseResponse<List<ProductTypeResponse>>>> Types()
         {
             var response = await _mediator.Send(new GetAllProductTypesQuery());
             return Ok(response);

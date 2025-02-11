@@ -10,9 +10,9 @@ namespace Skinet.Core.Interfaces
 {
     public interface IOrderService
     {
-        Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, UserOrderAddress shippingAddress);
-        Task<IReadOnlyList<Order>> GetOrdersForUserAsync(string buyerEmail);
+        Task<Order?> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, UserOrderAddress shippingAddress);
+        Task<List<Order>> GetOrdersForUserAsync(string buyerEmail);
         Task<Order> GetOrderByIdAsync(int id, string buyerEmail);
-        Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethodsAsync();
+        Task<List<DeliveryMethod>> GetDeliveryMethodsAsync();
     }
 }

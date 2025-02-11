@@ -11,7 +11,7 @@ namespace Skinet.Core.Interfaces
 {
     public interface IGenericRepository<T>  where T : BaseEntity
     {
-        Task<IReadOnlyList<T>> GetAllAsync();
+        Task<List<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task AddAsync(T item);
         void Update(T item);
@@ -19,7 +19,7 @@ namespace Skinet.Core.Interfaces
         Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
 
 
-        Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecification<T> spec);
+        Task<List<T>> GetAllWithSpecAsync(ISpecification<T> spec);
         Task<T> GetWithSpecAsync(ISpecification<T> spec);
         Task<int> CountAsync(ISpecification<T> spec);
     }

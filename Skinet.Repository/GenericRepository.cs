@@ -21,7 +21,7 @@ namespace Skinet.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
@@ -54,7 +54,7 @@ namespace Skinet.Repository
 
 
 
-        public async Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecification<T> spec)
+        public async Task<List<T>> GetAllWithSpecAsync(ISpecification<T> spec)
         {
             return await ApplySpecification(spec).AsNoTracking().ToListAsync();
         }

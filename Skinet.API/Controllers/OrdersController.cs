@@ -1,11 +1,16 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs.Identity;
 using Skinet.API.DTOs.Order;
 using Skinet.API.Errors;
+using Skinet.API.Features.Orders.Commands.Create;
+using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Orders.Queries.GetOrdersForUser;
 using Skinet.Core.Entities.Order;
+using Skinet.Core.Helper;
 using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Controllers
@@ -15,59 +20,30 @@ namespace Skinet.API.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
-        public OrdersController(IOrderService orderService, IMapper mapper)
+        public OrdersController(IOrderService orderService, IMapper mapper, IMediator mediator)
         {
             _orderService = orderService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
-        [ProducesResponseType(typeof(OrderToReturnDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+       
         [HttpPost]
-        public async Task<ActionResult<OrderToReturnDto>> CreateOrder(OrderDto orderDto)
+        public async Task<ActionResult<BaseResponse<OrderModel>>> CreateOrder(CreateOrderCommand command)
         {
-            var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
-
-            var mappedAddress = _mapper.Map<AddressDto, UserOrderAddress>(orderDto.ShippingAddress);
-
-            var order = await _orderService.CreateOrderAsync(buyerEmail,
-                orderDto.DeliveryMethodId,
-                orderDto.BasketId,
-                mappedAddress);
-
-
-            if (order is null)
-            {
-                return BadRequest(new ApiResponse(400, "There's a problem with your order."));
-            }
-            var mappedOrder = _mapper.Map<Order, OrderToReturnDto>(order);
-
-            return Ok(mappedOrder);
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
 
-        [ProducesResponseType(typeof(IReadOnlyList<OrderToReturnDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<OrderToReturnDto>>> GetOrdersForUser()
+        public async Task<ActionResult<BaseResponse<List<OrderModel>>>> GetOrdersForUser()
         {
-            var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
-
-            var orders = await _orderService.GetOrdersForUserAsync(buyerEmail);
-
-            if (orders is null)
-            {
-                return BadRequest(new ApiResponse(400, "There are no Orders."));
-            }
-            if (orders?.Count() <= 0)
-            {
-                return NotFound(new ApiResponse(404, "There are no Orders."));
-            }
-
-            var MappedOrder = _mapper.Map<IReadOnlyList<Order>, IReadOnlyList<OrderToReturnDto>>(orders);
-
-            return Ok(MappedOrder);
+            var response = await _mediator.Send(new GetOrdersForUserQuery());
+            return Ok(response);
         }
 
 

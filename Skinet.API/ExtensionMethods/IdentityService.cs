@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Skinet.Core.Entities.Identity;
 using Skinet.Core.Interfaces;
 using Skinet.Repository.Identity;
-using Skinet.Service;
+using Skinet.Service.Implementation;
 
 namespace Skinet.API.ExtensionMethods
 {
@@ -14,7 +14,7 @@ namespace Skinet.API.ExtensionMethods
         public static IServiceCollection AddIdentityServices(this IServiceCollection Services, IConfiguration configuration)
         {
 
-            Services.AddScoped<ITokenService, TokenService>();
+            Services.AddScoped<IAuthService, AuthService>();
 
             Services.AddIdentity<AppUser, IdentityRole>(options =>
             {

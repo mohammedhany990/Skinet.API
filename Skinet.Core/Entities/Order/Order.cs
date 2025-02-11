@@ -15,7 +15,7 @@ namespace Skinet.Core.Entities.Order
         public Order(string buyerEmail,
             UserOrderAddress shippingAddress,
             DeliveryMethod? deliveryMethod,
-            IReadOnlyList<OrderItem> orderItems,
+            List<OrderItem> orderItems,
             decimal subTotal,
             string paymentIntentId
         )
@@ -34,7 +34,7 @@ namespace Skinet.Core.Entities.Order
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public UserOrderAddress ShipToAddress { get; set; }
         public DeliveryMethod? DeliveryMethod { get; set; }
-        public IReadOnlyList<OrderItem> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         public decimal SubTotal { get; set; }
