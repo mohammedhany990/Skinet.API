@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
 using Skinet.API.DTOs;
+using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Products.Models;
 using Skinet.API.Features.ProductTypes.Queries.Response;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.API.Features.Products.Queries.GetById
 {
-    public class GetByIdProductHandler : IRequestHandler<GetByIdProductQuery, BaseResponse<ProductToReturnDto>>
+    public class GetByIdProductHandler : IRequestHandler<GetByIdProductQuery, BaseResponse<ProductModel>>
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
@@ -17,11 +19,11 @@ namespace Skinet.API.Features.Products.Queries.GetById
             _productService = productService;
             _mapper = mapper;
         }
-        public async Task<BaseResponse<ProductToReturnDto>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<ProductModel>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
         {
             if (request.ProductId <= 0)
             {
-                return new BaseResponse<ProductToReturnDto>
+                return new BaseResponse<ProductModel>
                 {
                     Success = false,
                     Message = "Invalid Product ID",
@@ -31,16 +33,16 @@ namespace Skinet.API.Features.Products.Queries.GetById
             var product = await _productService.GetProductByIdAsync(request.ProductId);
             if (product is null)
             {
-                return new BaseResponse<ProductToReturnDto>
+                return new BaseResponse<ProductModel>
                 {
                     Message = "Product not found",
                     StatusCode = StatusCodes.Status404NotFound,
                     Success = false
                 };
             }
-            return new BaseResponse<ProductToReturnDto>
+            return new BaseResponse<ProductModel>
             {
-                Data = _mapper.Map<ProductToReturnDto>(product),
+                Data = _mapper.Map<ProductModel>(product),
                 Message = "Product found successfully",
                 StatusCode = StatusCodes.Status200OK,
                 Success = true,

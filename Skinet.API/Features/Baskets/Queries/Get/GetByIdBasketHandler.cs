@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using MediatR;
 using Org.BouncyCastle.Bcpg;
+using Skinet.API.Features.Baskets.Models;
 using Skinet.Core.Entities.Basket;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.API.Features.Baskets.Queries.Get
 {
-    public class GetByIdBasketHandler : IRequestHandler<GetByIdBasketQuery, BaseResponse<BasketResponse>>
+    public class GetByIdBasketHandler : IRequestHandler<GetByIdBasketQuery, BaseResponse<CustomerBasketModel>>
     {
         private readonly IBasketService _basketService;
         private readonly IMapper _mapper;
@@ -18,13 +19,13 @@ namespace Skinet.API.Features.Baskets.Queries.Get
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<BasketResponse>> Handle(GetByIdBasketQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<CustomerBasketModel>> Handle(GetByIdBasketQuery request, CancellationToken cancellationToken)
         {
             var basket = await _basketService.GetBasketAsync(request.Id);
 
-            var mappedBasket = _mapper.Map<BasketResponse>(basket ?? new CustomerBasket(request.Id));
+            var mappedBasket = _mapper.Map<CustomerBasketModel>(basket ?? new CustomerBasket(request.Id));
 
-            return new BaseResponse<BasketResponse>
+            return new BaseResponse<CustomerBasketModel>
             {
                 Data = mappedBasket,
                 StatusCode = 200,

@@ -8,6 +8,7 @@ using Skinet.API.DTOs.Order;
 using Skinet.API.Errors;
 using Skinet.API.Features.Orders.Commands.Create;
 using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Orders.Queries.GetByIdSpecificOrderForUser;
 using Skinet.API.Features.Orders.Queries.GetOrdersForUser;
 using Skinet.Core.Entities.Order;
 using Skinet.Core.Helper;
@@ -48,19 +49,10 @@ namespace Skinet.API.Controllers
 
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Order), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<OrderToReturnDto>> GetSpecificOrderForUser(int id)
+        public async Task<ActionResult<OrderModel>> GetSpecificOrderForUser(int id)
         {
-            var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
-            var order = await _orderService.GetOrderByIdAsync(id, buyerEmail);
-            if (order is null)
-            {
-                return BadRequest(new ApiResponse(404, $"There is no Order with {id} for this user."));
-            }
-            var MappedOrder = _mapper.Map<Order, OrderToReturnDto>(order);
-
-            return Ok(MappedOrder);
+            var response = await _mediator.Send(new GetByIdSpecificOrderForUserQuery(id));
+            return Ok(response);
         }
 
         [HttpGet("delivery-methods")]

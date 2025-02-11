@@ -1,10 +1,10 @@
 ﻿using Skinet.Core.Entities.Basket;
 
-namespace Skinet.API.Features.Baskets.Queries
+namespace Skinet.API.Features.Baskets.Models
 {
-    public class BasketResponse
+    public class CustomerBasketModel
     {
-        public BasketResponse(string id)
+        public CustomerBasketModel(string id)
         {
             Id = id;
         }

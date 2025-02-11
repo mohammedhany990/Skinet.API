@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.ProductBrands.Commands.Create;
 using Skinet.API.Features.ProductBrands.Commands.Delete;
 using Skinet.API.Features.ProductBrands.Commands.Update;
+using Skinet.API.Features.ProductBrands.Models;
 using Skinet.API.Features.ProductBrands.Queries.Get;
 using Skinet.API.Features.ProductBrands.Queries.List;
-using Skinet.API.Features.ProductBrands.Queries.Responses;
 using Skinet.Core.Entities;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
@@ -25,7 +25,7 @@ namespace Skinet.API.Controllers
         }
         [MapToApiVersion("1.0")]
         [HttpGet("brands")]
-        public async Task<ActionResult<BaseResponse<List<ProductBrandResponse>>>> Brands()
+        public async Task<ActionResult<BaseResponse<List<ProductBrandModel>>>> Brands()
         {
             var response = await _mediator.Send(new GetAllProductBrandsQuery());
             return Ok(response);
@@ -33,7 +33,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaseResponse<ProductBrandResponse>>> Brand(int id)
+        public async Task<ActionResult<BaseResponse<ProductBrandModel>>> Brand(int id)
         {
             var response = await _mediator.Send(new GetByIdProductBrandQuery(id));
             return Ok(response);

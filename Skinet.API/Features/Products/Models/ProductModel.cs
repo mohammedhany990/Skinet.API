@@ -1,8 +1,6 @@
-﻿using Skinet.Core.Entities;
-
-namespace Skinet.API.DTOs
-{/*
-    public class ProductToReturnDto
+﻿namespace Skinet.API.Features.Products.Models
+{
+    public class ProductModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,6 +11,5 @@ namespace Skinet.API.DTOs
         public string ProductBrand { get; set; }
 
         public string ProductType { get; set; }
-
-    }*/
+    }
 }

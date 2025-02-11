@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Skinet.API.DTOs.Basket;
+using Skinet.API.Features.Baskets.Models;
 using Skinet.Core.Entities.Basket;
 using Skinet.Core.Helper;
 using System.ComponentModel.DataAnnotations;

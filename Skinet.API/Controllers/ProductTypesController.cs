@@ -6,9 +6,9 @@ using Skinet.API.Features.Products.Commands.Update;
 using Skinet.API.Features.ProductTypes.Commands.Create;
 using Skinet.API.Features.ProductTypes.Commands.Delete;
 using Skinet.API.Features.ProductTypes.Commands.Update;
+using Skinet.API.Features.ProductTypes.Models;
 using Skinet.API.Features.ProductTypes.Queries.GetById;
 using Skinet.API.Features.ProductTypes.Queries.List;
-using Skinet.API.Features.ProductTypes.Queries.Response;
 using Skinet.Core.Entities;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
@@ -31,7 +31,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet("types")]
-        public async Task<ActionResult<BaseResponse<List<ProductTypeResponse>>>> Types()
+        public async Task<ActionResult<BaseResponse<List<ProductTypeModel>>>> Types()
         {
             var response = await _mediator.Send(new GetAllProductTypesQuery());
             return Ok(response);
@@ -39,7 +39,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaseResponse<ProductTypeResponse>>> GetById(int id)
+        public async Task<ActionResult<BaseResponse<ProductTypeModel>>> GetById(int id)
         {
             var response = await _mediator.Send(new GetByIdProductTypeQuery(id));
             return Ok(response);

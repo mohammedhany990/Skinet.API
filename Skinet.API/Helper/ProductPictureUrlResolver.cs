@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using Skinet.API.DTOs;
+using Skinet.API.Features.Products.Models;
 using Skinet.Core.Entities;
 
 namespace Skinet.API.Helper
 {
-    public class ProductPictureUrlResolver: IValueResolver<Product,ProductToReturnDto,string>
+    public class ProductPictureUrlResolver: IValueResolver<Product, ProductModel, string>
     {
         private readonly IConfiguration _configuration;
 
@@ -12,7 +13,7 @@ namespace Skinet.API.Helper
         {
             _configuration = configuration;
         }
-        public string Resolve(Product source, ProductToReturnDto destination, string destMember, ResolutionContext context)
+        public string Resolve(Product source, ProductModel destination, string destMember, ResolutionContext context)
         {
             if (!string.IsNullOrEmpty(source.PictureUrl))
             {

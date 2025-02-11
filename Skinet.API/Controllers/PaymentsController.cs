@@ -7,7 +7,8 @@ using Skinet.API.Errors;
 using Stripe;
 using Skinet.Core.Entities.Basket;
 using Skinet.Service.Interfaces;
-using Skinet.Core.Entities.Order; 
+using Skinet.Core.Entities.Order;
+using Skinet.API.Features.Baskets.Models;
 
 namespace Skinet.API.Controllers
 {
@@ -28,7 +29,7 @@ namespace Skinet.API.Controllers
 
         [HttpPost("{basketId}")]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<CustomerBasketDto>> CreateOrUpdatePayment(string basketId)
+        public async Task<ActionResult<CustomerBasketModel>> CreateOrUpdatePayment(string basketId)
         {
             var customerBasket = await _paymentService.CreateOrUpdatePaymentIntentAsync(basketId);
             if (customerBasket is null)
@@ -36,7 +37,7 @@ namespace Skinet.API.Controllers
                 return BadRequest(new ApiResponse(400, "There's a problem with your Basket."));
             }
 
-            var MappedBasket = _mapper.Map<CustomerBasket, CustomerBasketDto>(customerBasket);
+            var MappedBasket = _mapper.Map<CustomerBasket, CustomerBasketModel>(customerBasket);
 
             return Ok(MappedBasket);
         }

@@ -1,7 +1,7 @@
 ﻿using Skinet.Core.Entities.Order;
 
 namespace Skinet.API.DTOs.Order
-{
+{/*
     public class OrderToReturnDto
     {
         public int Id { get; set; }
@@ -16,5 +16,5 @@ namespace Skinet.API.DTOs.Order
         public decimal SubTotal { get; set; }
         public decimal Total { get; set; }
         public string PaymentIntentId { get; set; }
-    }
+    }*/
 }

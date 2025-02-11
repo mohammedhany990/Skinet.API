@@ -6,7 +6,7 @@ using Skinet.API.DTOs.Folder;
 using Skinet.API.Errors;
 using Skinet.API.Features.Baskets.Commands.Create;
 using Skinet.API.Features.Baskets.Commands.Delete;
-using Skinet.API.Features.Baskets.Queries;
+using Skinet.API.Features.Baskets.Models;
 using Skinet.API.Features.Baskets.Queries.Get;
 using Skinet.Core.Entities.Basket;
 using Skinet.Core.Helper;
@@ -28,7 +28,7 @@ namespace Skinet.API.Controllers
        
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<BasketResponse>>> GetBasketById(string id)
+        public async Task<ActionResult<BaseResponse<CustomerBasketModel>>> GetBasketById(string id)
         {
             var response = await _mediator.Send(new GetByIdBasketQuery(id));
             return Ok(response);

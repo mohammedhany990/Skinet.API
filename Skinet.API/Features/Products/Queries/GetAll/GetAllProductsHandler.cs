@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using MediatR;
 using Skinet.API.DTOs;
+using Skinet.API.Features.Products.Models;
 using Skinet.Core.Entities;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.API.Features.Products.Queries.GetAll
 {
-    public class GetAllProductsHandler : IRequestHandler<GetAllProductsQuery, BaseResponse<List<ProductToReturnDto>>>
+    public class GetAllProductsHandler : IRequestHandler<GetAllProductsQuery, BaseResponse<List<ProductModel>>>
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
@@ -18,28 +19,28 @@ namespace Skinet.API.Features.Products.Queries.GetAll
             _mapper = mapper;
         }
 
-        public async Task<BaseResponse<List<ProductToReturnDto>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<List<ProductModel>>> Handle(GetAllProductsQuery request, CancellationToken cancellationToken)
         {
 
             var products = await _productService.GetProductsAsync(request.Parameters);
 
             if (products is null || !products.Any())
             {
-                return new BaseResponse<List<ProductToReturnDto>>
+                return new BaseResponse<List<ProductModel>>
                 {
                     Success = false,
                     Message = "No products found",
                     StatusCode = StatusCodes.Status404NotFound,
-                    Data = new List<ProductToReturnDto>(),
+                    Data = new List<ProductModel>(),
                     Count = 0
                 };
             }
 
             var count = await _productService.GetProductCountAsync(request.Parameters);
 
-            var mappedProducts = _mapper.Map<List<ProductToReturnDto>>(products);
+            var mappedProducts = _mapper.Map<List<ProductModel>>(products);
 
-            return new BaseResponse<List<ProductToReturnDto>>
+            return new BaseResponse<List<ProductModel>>
             {
                 Success = true,
                 Message = "Products retrieved successfully",

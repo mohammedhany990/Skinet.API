@@ -5,14 +5,15 @@ using Skinet.API.DTOs.Folder;
 using Skinet.API.DTOs.Identity;
 using Skinet.API.DTOs.Order;
 using Skinet.API.Features.Baskets.Commands.Create;
-using Skinet.API.Features.Baskets.Queries;
+using Skinet.API.Features.Baskets.Models;
 using Skinet.API.Features.Orders.Models;
 using Skinet.API.Features.ProductBrands.Commands.Create;
-using Skinet.API.Features.ProductBrands.Queries.Responses;
+using Skinet.API.Features.ProductBrands.Models;
 using Skinet.API.Features.Products.Commands.Create;
 using Skinet.API.Features.Products.Commands.Update;
+using Skinet.API.Features.Products.Models;
 using Skinet.API.Features.ProductTypes.Commands.Create;
-using Skinet.API.Features.ProductTypes.Queries.Response;
+using Skinet.API.Features.ProductTypes.Models;
 using Skinet.Core.Entities;
 using Skinet.Core.Entities.Basket;
 using Skinet.Core.Entities.Identity;
@@ -24,26 +25,26 @@ namespace Skinet.API.Helper
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductToReturnDto>()
+            CreateMap<Product, ProductModel>()
                 .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom<ProductPictureUrlResolver>())
                 .ForMember(dest => dest.ProductBrand, src => src.MapFrom(src => src.ProductBrand.Name))
                 .ForMember(dest => dest.ProductType, src => src.MapFrom(src => src.ProductType.Name));
 
 
-            CreateMap<Address, AddressDto>().ReverseMap();
-            CreateMap<BasketItem, BasketItemDto>().ReverseMap();
-            CreateMap<CustomerBasketDto, CustomerBasket>().ReverseMap();
+            //CreateMap<Address, AddressDto>().ReverseMap();
+            //CreateMap<BasketItem, BasketItemDto>().ReverseMap();
+            //CreateMap<CustomerBasketDto, CustomerBasket>().ReverseMap();
 
 
 
 
 
-            CreateMap<AddressDto, UserOrderAddress>();
+            //CreateMap<AddressDto, UserOrderAddress>();
 
 
-            CreateMap<Order, OrderToReturnDto>()
-                .ForMember(dest => dest.DeliveryMethod, src => src.MapFrom(N => N.DeliveryMethod.ShortName))
-                .ForMember(dest => dest.Price, src => src.MapFrom(C => C.DeliveryMethod.Price));
+            //CreateMap<Order, OrderToReturnDto>()
+            //    .ForMember(dest => dest.DeliveryMethod, src => src.MapFrom(N => N.DeliveryMethod.ShortName))
+            //    .ForMember(dest => dest.Price, src => src.MapFrom(C => C.DeliveryMethod.Price));
 
 
             //CreateMap<OrderItem, OrderItemDto>()
@@ -59,13 +60,13 @@ namespace Skinet.API.Helper
                 .ForMember(dest => dest.PictureUrl, opt => opt.Ignore());
 
 
-            CreateMap<ProductType, ProductTypeResponse>();
-            CreateMap<ProductBrand, ProductBrandResponse>();
+            CreateMap<ProductType, ProductTypeModel>();
+            CreateMap<ProductBrand, ProductBrandModel>();
 
 
             CreateMap<CreateProductTypeCommand, ProductType>();
             CreateMap<CreateProductBrandCommand, ProductBrand>();
-            CreateMap<CustomerBasket, BasketResponse>().ReverseMap();
+            CreateMap<CustomerBasket, CustomerBasketModel>().ReverseMap();
             CreateMap<BasketItemModel, BasketItem>();
             CreateMap<CreateBasketCommand, CustomerBasket>().ReverseMap();
             

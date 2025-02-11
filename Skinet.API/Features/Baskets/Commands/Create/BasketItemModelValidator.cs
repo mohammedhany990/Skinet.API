@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Skinet.API.Features.Baskets.Models;
 
 namespace Skinet.API.Features.Baskets.Commands.Create
 {

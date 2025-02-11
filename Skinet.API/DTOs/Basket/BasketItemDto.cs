@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Skinet.API.DTOs.Basket
-{
+{/*
     public class BasketItemDto
     {
         [Required]
@@ -26,5 +26,5 @@ namespace Skinet.API.DTOs.Basket
 
         [Required]
         public string Type { get; set; }
-    }
+    }*/
 }
