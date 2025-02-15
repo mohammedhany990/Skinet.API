@@ -1,6 +1,5 @@
-﻿using FluentValidation;
-using MediatR;
-using Skinet.API.Features.ProductTypes.Queries.Response;
+﻿using MediatR;
+
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 

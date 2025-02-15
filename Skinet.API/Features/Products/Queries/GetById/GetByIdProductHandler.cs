@@ -3,7 +3,7 @@ using MediatR;
 using Skinet.API.DTOs;
 using Skinet.API.Features.Orders.Models;
 using Skinet.API.Features.Products.Models;
-using Skinet.API.Features.ProductTypes.Queries.Response;
+
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 

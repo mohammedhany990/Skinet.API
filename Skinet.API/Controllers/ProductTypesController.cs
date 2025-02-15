@@ -49,8 +49,8 @@ namespace Skinet.API.Controllers
         [HttpPut("update")]
         public async Task<ActionResult<BaseResponse<string>>> Update(UpdateProductTypeCommand command)
         {
-            var response = await _mediator.Send( command);
-            return Ok(response);
+                var response = await _mediator.Send( command);
+                return Ok(response);
         }
 
         [MapToApiVersion("1.0")]

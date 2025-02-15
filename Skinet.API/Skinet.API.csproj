@@ -33,9 +33,7 @@
     <Folder Include="Features\Baskets\Queries\List\" />
     <Folder Include="Features\Orders\Commands\Delete\" />
     <Folder Include="Features\Orders\Commands\Update\" />
-    <Folder Include="Features\Payments\Commands\Create\" />
     <Folder Include="Features\Payments\Commands\Delete\" />
-    <Folder Include="Features\Payments\Commands\Update\" />
     <Folder Include="Features\Payments\Queries\Get\" />
     <Folder Include="Features\Payments\Queries\List\" />
   </ItemGroup>
