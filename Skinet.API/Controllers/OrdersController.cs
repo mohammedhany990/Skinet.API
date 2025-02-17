@@ -1,10 +1,5 @@
-﻿using System.Security.Claims;
-using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.DTOs.Identity;
-using Skinet.API.DTOs.Order;
 using Skinet.API.Errors;
 using Skinet.API.Features.Orders.Commands.Create;
 using Skinet.API.Features.Orders.Models;
@@ -20,13 +15,11 @@ namespace Skinet.API.Controllers
     public class OrdersController : ApiBaseController
     {
         private readonly IOrderService _orderService;
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public OrdersController(IOrderService orderService, IMapper mapper, IMediator mediator)
+        public OrdersController(IOrderService orderService, IMediator mediator)
         {
             _orderService = orderService;
-            _mapper = mapper;
             _mediator = mediator;
         }
 

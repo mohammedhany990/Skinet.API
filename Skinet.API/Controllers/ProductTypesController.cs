@@ -19,12 +19,11 @@ namespace Skinet.API.Controllers
     [ApiVersion("1.0")]
     public class ProductTypesController : ApiBaseController
     {
-        private readonly IProductTypeService _typeService;
         private readonly IMediator _mediator;
 
-        public ProductTypesController(IProductTypeService typeService, IMediator mediator)
+        public ProductTypesController(IMediator mediator)
         {
-            _typeService = typeService;
+           
             _mediator = mediator;
         }
 

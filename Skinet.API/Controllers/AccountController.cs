@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs.Identity;
 using Skinet.API.Errors;
-using Skinet.Core.Entities.Identity;
-using System.IdentityModel.Tokens.Jwt;
-using Skinet.Core.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using AutoMapper;
 using Skinet.API.ExtensionMethods;
+using Skinet.Core.Entities.Identity;
+using Skinet.Core.Interfaces;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace Skinet.API.Controllers
 {

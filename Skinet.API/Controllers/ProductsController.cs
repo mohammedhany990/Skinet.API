@@ -1,10 +1,6 @@
 ﻿using Asp.Versioning;
-using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.DTOs;
-using Skinet.API.Errors;
 using Skinet.API.Features.Products.Commands.Create;
 using Skinet.API.Features.Products.Commands.Delete;
 using Skinet.API.Features.Products.Commands.Update;
@@ -13,9 +9,7 @@ using Skinet.API.Features.Products.Queries.GetAll;
 using Skinet.API.Features.Products.Queries.GetAllWithPaginationProducts;
 using Skinet.API.Features.Products.Queries.GetById;
 using Skinet.API.Helper;
-using Skinet.Core.Entities;
 using Skinet.Core.Helper;
-using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
 
 namespace Skinet.API.Controllers

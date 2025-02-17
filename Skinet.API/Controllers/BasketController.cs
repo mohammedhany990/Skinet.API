@@ -1,17 +1,10 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.DTOs.Folder;
-using Skinet.API.Errors;
 using Skinet.API.Features.Baskets.Commands.Create;
 using Skinet.API.Features.Baskets.Commands.Delete;
 using Skinet.API.Features.Baskets.Models;
 using Skinet.API.Features.Baskets.Queries.Get;
-using Skinet.Core.Entities.Basket;
 using Skinet.Core.Helper;
-using Skinet.Core.Interfaces;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Skinet.API.Controllers
 {

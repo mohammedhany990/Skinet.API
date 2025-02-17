@@ -1,6 +1,5 @@
 ﻿using Asp.Versioning;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.ProductBrands.Commands.Create;
 using Skinet.API.Features.ProductBrands.Commands.Delete;
@@ -8,9 +7,7 @@ using Skinet.API.Features.ProductBrands.Commands.Update;
 using Skinet.API.Features.ProductBrands.Models;
 using Skinet.API.Features.ProductBrands.Queries.Get;
 using Skinet.API.Features.ProductBrands.Queries.List;
-using Skinet.Core.Entities;
 using Skinet.Core.Helper;
-using Skinet.Service.Interfaces;
 
 namespace Skinet.API.Controllers
 {
