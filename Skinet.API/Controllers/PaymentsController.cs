@@ -1,16 +1,7 @@
 ﻿using Asp.Versioning;
-using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.DTOs.Folder;
-using Skinet.API.Errors;
-using Stripe;
-using Skinet.Core.Entities.Basket;
-using Skinet.Service.Interfaces;
-using Skinet.Core.Entities.Order;
 using Skinet.API.Features.Baskets.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Skinet.API.Features.Payments.Commands.Update;
 using Skinet.API.Features.Payments.Commands.Webhook;
 
@@ -20,11 +11,8 @@ namespace Skinet.API.Controllers
     public class PaymentsController : ApiBaseController
     {
         private readonly IMediator _mediator;
-        private readonly IPaymentService _paymentService;
-        private readonly IMapper _mapper;
-        private readonly ILogger<PaymentsController> _logger;
        
-        public PaymentsController(IMediator mediator,IPaymentService paymentService, IMapper mapper, ILogger<PaymentsController> logger)
+        public PaymentsController(IMediator mediator)
         {
             _mediator = mediator;
           
