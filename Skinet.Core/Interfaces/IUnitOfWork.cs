@@ -12,5 +12,6 @@ namespace Skinet.Core.Interfaces
         IGenericRepository<TEntity> Repository<TEntity>() where TEntity : BaseEntity;
         Task<int> CompleteAsync();
        IBasketRepository BasketRepository { get; set; }
+        ICartRepository CartRepository { get; set; }
     }
 }

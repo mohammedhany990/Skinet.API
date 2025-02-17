@@ -24,6 +24,7 @@ namespace Skinet.API.Features.Orders.Commands.Create
         public async Task<BaseResponse<OrderModel>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var user = _httpContextAccessor.HttpContext?.User;
+
             if (user is null || !user.HasClaim(c => c.Type == ClaimTypes.Email))
             {
                 return new BaseResponse<OrderModel>(401, false, "User is not authenticated.");

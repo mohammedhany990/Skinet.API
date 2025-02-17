@@ -29,6 +29,7 @@ namespace Skinet.Service.Implementation
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, user.DisplayName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
             };
 
             var roles = await userManager.GetRolesAsync(user);

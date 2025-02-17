@@ -12,8 +12,8 @@ using Skinet.Repository.Data;
 namespace Skinet.Repository.Data.Migrations
 {
     [DbContext(typeof(SkinetDbContext))]
-    [Migration("20250116113004_OrderEntityAdded")]
-    partial class OrderEntityAdded
+    [Migration("20250216015105_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,70 @@ namespace Skinet.Repository.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Skinet.Core.Entities.FavoriteItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<int>("FavoriteListId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FavoriteListId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("FavoriteItems", (string)null);
+                });
+
+            modelBuilder.Entity("Skinet.Core.Entities.FavoriteList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
+
+                    b.Property<DateTime?>("LastUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavoriteLists", (string)null);
+                });
 
             modelBuilder.Entity("Skinet.Core.Entities.Order.DeliveryMethod", b =>
                 {
@@ -189,6 +253,25 @@ namespace Skinet.Repository.Data.Migrations
                     b.ToTable("ProductTypes");
                 });
 
+            modelBuilder.Entity("Skinet.Core.Entities.FavoriteItem", b =>
+                {
+                    b.HasOne("Skinet.Core.Entities.FavoriteList", "FavoriteList")
+                        .WithMany("FavoriteItems")
+                        .HasForeignKey("FavoriteListId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Skinet.Core.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FavoriteList");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Skinet.Core.Entities.Order.Order", b =>
                 {
                     b.HasOne("Skinet.Core.Entities.Order.DeliveryMethod", "DeliveryMethod")
@@ -291,6 +374,11 @@ namespace Skinet.Repository.Data.Migrations
                     b.Navigation("ProductBrand");
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Skinet.Core.Entities.FavoriteList", b =>
+                {
+                    b.Navigation("FavoriteItems");
                 });
 
             modelBuilder.Entity("Skinet.Core.Entities.Order.Order", b =>

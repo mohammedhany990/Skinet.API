@@ -4,6 +4,7 @@ using Skinet.API.Errors;
 using Skinet.API.Helper;
 using Skinet.Core.Interfaces;
 using Skinet.Repository;
+using Skinet.Repository.Abstracts;
 using Skinet.Service.Implementation;
 using Skinet.Service.Interfaces;
 
@@ -22,6 +23,10 @@ namespace Skinet.API.ExtensionMethods
             services.AddScoped(typeof(IProductBrandService), typeof(ProductBrandService));
             services.AddScoped(typeof(IBasketService), typeof(BasketService));
             services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
+            services.AddScoped(typeof(IFavoriteService), typeof(FavoriteService));
+            services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
+            services.AddScoped(typeof(ICartRepositoryFactory), typeof(CartRepositoryFactory));
+           
 
 
             services.AddAutoMapper(typeof(MappingProfile));

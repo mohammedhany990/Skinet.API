@@ -6,6 +6,7 @@ using Skinet.API.DTOs.Identity;
 using Skinet.API.DTOs.Order;
 using Skinet.API.Features.Baskets.Commands.Create;
 using Skinet.API.Features.Baskets.Models;
+using Skinet.API.Features.Favorites.Models;
 using Skinet.API.Features.Orders.Models;
 using Skinet.API.Features.ProductBrands.Commands.Create;
 using Skinet.API.Features.ProductBrands.Models;
@@ -85,9 +86,11 @@ namespace Skinet.API.Helper
                 .ForMember(m => m.Price, i => i.MapFrom(c => c.DeliveryMethod.Price))
                 .ForMember(m => m.ShippingAddress, o => o.MapFrom(c => c.ShipToAddress)) 
                 .ForMember(m => m.Items, o => o.MapFrom(c => c.OrderItems)) 
-                .ForMember(m => m.Total, o => o.MapFrom(c => c.GetTotal)); 
+                .ForMember(m => m.Total, o => o.MapFrom(c => c.GetTotal));
 
-        
+
+            CreateMap<FavoriteItem, FavoriteItemModel>();
+
 
         }
 
