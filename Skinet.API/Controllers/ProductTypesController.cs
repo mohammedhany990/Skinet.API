@@ -1,18 +1,13 @@
 ﻿using Asp.Versioning;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.Features.Products.Commands.Update;
 using Skinet.API.Features.ProductTypes.Commands.Create;
 using Skinet.API.Features.ProductTypes.Commands.Delete;
 using Skinet.API.Features.ProductTypes.Commands.Update;
 using Skinet.API.Features.ProductTypes.Models;
 using Skinet.API.Features.ProductTypes.Queries.GetById;
 using Skinet.API.Features.ProductTypes.Queries.List;
-using Skinet.Core.Entities;
 using Skinet.Core.Helper;
-using Skinet.Service.Interfaces;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Skinet.API.Controllers
 {
@@ -23,7 +18,7 @@ namespace Skinet.API.Controllers
 
         public ProductTypesController(IMediator mediator)
         {
-           
+
             _mediator = mediator;
         }
 
@@ -48,8 +43,8 @@ namespace Skinet.API.Controllers
         [HttpPut("update")]
         public async Task<ActionResult<BaseResponse<string>>> Update(UpdateProductTypeCommand command)
         {
-                var response = await _mediator.Send( command);
-                return Ok(response);
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
         [MapToApiVersion("1.0")]

@@ -15,9 +15,9 @@ namespace Skinet.API.Controllers
     public class ProductBrandsController : ApiBaseController
     {
         private readonly IMediator _mediator;
-        public ProductBrandsController( IMediator mediator)
+        public ProductBrandsController(IMediator mediator)
         {
-           
+
             _mediator = mediator;
         }
         [MapToApiVersion("1.0")]

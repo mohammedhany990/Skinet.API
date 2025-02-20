@@ -2,7 +2,7 @@
 
 namespace Skinet.API.Helper
 {
-    public class Pagination<T> where T:class
+    public class Pagination<T> where T : class
     {
         [JsonPropertyOrder(1)]
         public int StatusCode { get; set; }
@@ -20,16 +20,16 @@ namespace Skinet.API.Helper
         public int PageIndex { get; set; }
 
         [JsonPropertyOrder(6)]
-        public int Count { get; set; }  
+        public int Count { get; set; }
 
         [JsonPropertyOrder(7)]
         public T Data { get; set; }
 
         public Pagination()
         {
-            
+
         }
-        public Pagination(bool success,int pageIndex, int pageSize, int count, T data)
+        public Pagination(bool success, int pageIndex, int pageSize, int count, T data)
         {
             Success = success;
             PageIndex = pageIndex;
@@ -38,7 +38,7 @@ namespace Skinet.API.Helper
             Data = data;
         }
 
-        public Pagination(bool success,int statusCode,string message, int pageIndex, int pageSize, int count, T data)
+        public Pagination(bool success, int statusCode, string message, int pageIndex, int pageSize, int count, T data)
         {
             Success = success;
             PageIndex = pageIndex;

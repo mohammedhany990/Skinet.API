@@ -1,14 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Skinet.API.Features.Orders.Models;
-using Skinet.Core.Helper;
-using Skinet.Core.Interfaces;
-using System.Security.Claims;
-using Skinet.Core.Entities.Order;
-using Skinet.API.DTOs.Order;
-
-namespace Skinet.API.Features.Orders.Commands.Create
-{
+﻿namespace Skinet.API.Features.Orders.Commands.Create
+{/*
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, BaseResponse<OrderModel>>
     {
         private readonly IOrderService _orderService;
@@ -54,4 +45,6 @@ namespace Skinet.API.Features.Orders.Commands.Create
             return new BaseResponse<OrderModel>(200, true, 1, mappedOrder, "Order created successfully.");
         }
     }
+
+    */
 }

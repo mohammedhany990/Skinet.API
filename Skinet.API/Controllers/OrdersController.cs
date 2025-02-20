@@ -1,19 +1,9 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Skinet.API.Errors;
-using Skinet.API.Features.Orders.Commands.Create;
-using Skinet.API.Features.Orders.Models;
-using Skinet.API.Features.Orders.Queries.GetByIdSpecificOrderForUser;
-using Skinet.API.Features.Orders.Queries.GetOrdersForUser;
-using Skinet.Core.Entities.Order;
-using Skinet.Core.Helper;
-using Skinet.Core.Interfaces;
-
-namespace Skinet.API.Controllers
+﻿namespace Skinet.API.Controllers
 {
 
     public class OrdersController : ApiBaseController
     {
+        /*
         private readonly IOrderService _orderService;
         private readonly IMediator _mediator;
 
@@ -58,7 +48,7 @@ namespace Skinet.API.Controllers
             }
             return Ok(deliveries);
         }
-
+        */
     }
 }
 

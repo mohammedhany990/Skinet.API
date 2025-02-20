@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using Skinet.API.DTOs;
 using Skinet.API.Features.Products.Models;
 using Skinet.Core.Entities;
 
 namespace Skinet.API.Helper
 {
-    public class ProductPictureUrlResolver: IValueResolver<Product, ProductModel, string>
+    public class ProductPictureUrlResolver : IValueResolver<Product, ProductModel, string>
     {
         private readonly IConfiguration _configuration;
 

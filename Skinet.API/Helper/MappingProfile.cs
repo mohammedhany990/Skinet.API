@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using Skinet.API.DTOs;
-using Skinet.API.DTOs.Basket;
-using Skinet.API.DTOs.Folder;
-using Skinet.API.DTOs.Identity;
-using Skinet.API.DTOs.Order;
-using Skinet.API.Features.Baskets.Commands.Create;
-using Skinet.API.Features.Baskets.Models;
+using Skinet.API.Features.Carts.Commands.Create;
+using Skinet.API.Features.Carts.Models;
 using Skinet.API.Features.Favorites.Models;
 using Skinet.API.Features.Orders.Models;
 using Skinet.API.Features.ProductBrands.Commands.Create;
@@ -16,8 +11,7 @@ using Skinet.API.Features.Products.Models;
 using Skinet.API.Features.ProductTypes.Commands.Create;
 using Skinet.API.Features.ProductTypes.Models;
 using Skinet.Core.Entities;
-using Skinet.Core.Entities.Basket;
-using Skinet.Core.Entities.Identity;
+using Skinet.Core.Entities.Cart;
 using Skinet.Core.Entities.Order;
 
 namespace Skinet.API.Helper
@@ -67,11 +61,9 @@ namespace Skinet.API.Helper
 
             CreateMap<CreateProductTypeCommand, ProductType>();
             CreateMap<CreateProductBrandCommand, ProductBrand>();
-            CreateMap<CustomerBasket, CustomerBasketModel>().ReverseMap();
-            CreateMap<BasketItemModel, BasketItem>();
-            CreateMap<CreateBasketCommand, CustomerBasket>().ReverseMap();
-            
-            
+           
+
+
             CreateMap<AddressModel, UserOrderAddress>().ReverseMap();
 
             CreateMap<OrderItem, OrderItemModel>()
@@ -84,12 +76,24 @@ namespace Skinet.API.Helper
             CreateMap<Order, OrderModel>()
                 .ForMember(m => m.DeliveryMethod, d => d.MapFrom(n => n.DeliveryMethod.ShortName))
                 .ForMember(m => m.Price, i => i.MapFrom(c => c.DeliveryMethod.Price))
-                .ForMember(m => m.ShippingAddress, o => o.MapFrom(c => c.ShipToAddress)) 
-                .ForMember(m => m.Items, o => o.MapFrom(c => c.OrderItems)) 
-                .ForMember(m => m.Total, o => o.MapFrom(c => c.GetTotal));
+                .ForMember(m => m.ShippingAddress, o => o.MapFrom(c => c.ShipToAddress))
+                .ForMember(m => m.Items, o => o.MapFrom(c => c.OrderItems));
 
 
             CreateMap<FavoriteItem, FavoriteItemModel>();
+
+
+            CreateMap<Cart, CartModel>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items))
+                .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Items.Sum(item => item.TotalPrice) + src.ShippingPrice))
+                .ReverseMap();
+
+
+
+            CreateMap<CartItem, CartItemModel>()
+                .ForMember(d => d.PictureUrl, o => o.MapFrom<CartItemPictureUrlResolver>())
+                .ReverseMap();
+
 
 
         }

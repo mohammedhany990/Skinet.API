@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Skinet.Core.Helper
 {
@@ -17,18 +12,18 @@ namespace Skinet.Core.Helper
 
         [JsonPropertyOrder(3)]
         public bool Success { get; set; }
-       
+
         [JsonPropertyOrder(4)]
         public int Count { get; set; }
 
         [JsonPropertyOrder(5)]
         public T? Data { get; set; }
 
-     
+
 
         public BaseResponse()
         {
-                
+
         }
         public BaseResponse(int statusCode, string? message = null)
         {
@@ -36,7 +31,7 @@ namespace Skinet.Core.Helper
             Message = message ?? GetDefaultMessageForStatusCode(statusCode);
         }
 
-        public BaseResponse(int statusCode, bool success, int count, T? data, string? message=null)
+        public BaseResponse(int statusCode, bool success, int count, T? data, string? message = null)
         {
             StatusCode = statusCode;
             Data = data;
@@ -51,7 +46,15 @@ namespace Skinet.Core.Helper
             Message = message ?? GetDefaultMessageForStatusCode(statusCode);
 
         }
-        
+        public BaseResponse(int statusCode, bool success, T data,string? message = null)
+        {
+            StatusCode = statusCode;
+            Success = success;
+            Data = data;
+            Message = message ?? GetDefaultMessageForStatusCode(statusCode);
+
+        }
+
         public string? GetDefaultMessageForStatusCode(int code)
         {
             return code switch

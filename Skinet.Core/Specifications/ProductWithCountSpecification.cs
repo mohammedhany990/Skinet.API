@@ -2,7 +2,7 @@
 
 namespace Skinet.Core.Specifications
 {
-    public class ProductWithCountSpecification  : BaseSpecification<Product>
+    public class ProductWithCountSpecification : BaseSpecification<Product>
     {
         public ProductWithCountSpecification(ProductSpecificationParameters? parameters)
             : base(p =>

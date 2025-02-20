@@ -1,7 +1,10 @@
 using Asp.Versioning;
+using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Skinet.API.Behaviours;
 using Skinet.API.ExtensionMethods;
 using Skinet.API.Middlewares;
 using Skinet.Core.Entities.Identity;
@@ -9,11 +12,6 @@ using Skinet.Repository.Data;
 using Skinet.Repository.Identity;
 using StackExchange.Redis;
 using System.Reflection;
-using FluentValidation;
-using MediatR;
-using Skinet.API.Behaviours;
-using Microsoft.AspNetCore.Mvc;
-using Skinet.API.Errors;
 
 namespace Skinet.API
 {
@@ -49,7 +47,7 @@ namespace Skinet.API
 
             builder.Services.AddSwaggerGen(opt =>
             {
-               
+
                 var securitySchema = new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. Example: \"Bearer {token}\"",
@@ -77,7 +75,7 @@ namespace Skinet.API
                 opt.SwaggerDoc("v1", new OpenApiInfo { Title = "SkiNet API", Version = "v1.0" });
 
             });
-           
+
             #endregion
 
 
@@ -93,7 +91,7 @@ namespace Skinet.API
 
             // Configure MediatR
             builder.Services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssemblies( Assembly.GetExecutingAssembly()));
+                cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
@@ -108,7 +106,7 @@ namespace Skinet.API
             //        options.JsonSerializerOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping; // Prevents escape issues
             //    });
 
-          
+
 
 
             builder.Services.AddApplicationServices();
@@ -131,7 +129,7 @@ namespace Skinet.API
                            .AllowCredentials()
                            .WithOrigins("http://localhost:4200");
                    });
-                  
+
                    options.AddPolicy("AllowDynamicLocalhost", builder =>
                    {
                        builder.SetIsOriginAllowed(origin =>
@@ -175,19 +173,19 @@ namespace Skinet.API
             #endregion
 
 
-                app.UseSwagger();
-                app.UseSwaggerUI();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             // Configure the HTTP request pipeline.
-           
+
             if (app.Environment.IsDevelopment())
             {
 
-               
+
             }
             app.UseHttpsRedirection();
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
             app.UseMiddleware<ExceptionMiddleware>();
-            
+
             app.UseStaticFiles();
             app.UseCors("Policy");
             app.UseCors("AllowDynamicLocalhost");

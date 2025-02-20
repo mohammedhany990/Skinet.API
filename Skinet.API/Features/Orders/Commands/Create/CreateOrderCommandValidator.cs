@@ -17,7 +17,7 @@ namespace Skinet.API.Features.Orders.Commands.Create
             RuleFor(x => x.ShippingAddress)
                 .NotNull()
                 .WithMessage("Shipping address is required")
-                .SetValidator(new AddressModelValidator()); 
+                .SetValidator(new AddressModelValidator());
         }
     }
 

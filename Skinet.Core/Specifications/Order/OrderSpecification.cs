@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skinet.Core.Specifications.Order
+﻿namespace Skinet.Core.Specifications.Order
 {
     public class OrderSpecification : BaseSpecification<Entities.Order.Order>
     {
@@ -22,5 +16,5 @@ namespace Skinet.Core.Specifications.Order
             Includes.Add(O => O.DeliveryMethod);
             Includes.Add(O => O.OrderItems);
         }
-}
+    }
 }

@@ -70,7 +70,7 @@ namespace Skinet.API.Features.Products.Commands.Create
             return new BaseResponse<string>
             {
                 Success = true,
-                StatusCode = StatusCodes.Status201Created, 
+                StatusCode = StatusCodes.Status201Created,
                 Message = result
             };
         }

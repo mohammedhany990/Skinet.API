@@ -1,48 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skinet.Core.Entities.Order
+﻿namespace Skinet.Core.Entities.Order
 {
-    public class Order:BaseEntity
+    public class Order : BaseEntity
     {
-        public Order()
-        {
-            
-        }
+        public Order() { }
+
         public Order(string buyerEmail,
             UserOrderAddress shippingAddress,
-            DeliveryMethod? deliveryMethod,
+            DeliveryMethod deliveryMethod,
             List<OrderItem> orderItems,
             decimal subTotal,
-            string paymentIntentId
-        )
+            string paymentIntentId)
         {
             BuyerEmail = buyerEmail;
             ShipToAddress = shippingAddress;
-            DeliveryMethod = deliveryMethod;
-            OrderItems = orderItems;
+            DeliveryMethod = deliveryMethod ?? throw new ArgumentNullException(nameof(deliveryMethod));
+            OrderItems = orderItems ?? new List<OrderItem>();
             SubTotal = subTotal;
-            PaymentIntentId = paymentIntentId;
-
+            PaymentIntentId = paymentIntentId ?? string.Empty;
+            Status = OrderStatus.Pending;
         }
 
-
-        public string BuyerEmail { get; set; }
-        public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public UserOrderAddress ShipToAddress { get; set; }
-        public DeliveryMethod? DeliveryMethod { get; set; }
-        public List<OrderItem> OrderItems { get; set; }
+        public string BuyerEmail { get; set; } = string.Empty;
+        public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.UtcNow;
+        public UserOrderAddress ShipToAddress { get; set; } = null!;
+        public DeliveryMethod DeliveryMethod { get; set; } = null!;
+        public List<OrderItem> OrderItems { get; set; } = new();
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
-
         public decimal SubTotal { get; set; }
+        public string PaymentIntentId { get; set; } = string.Empty;
 
-        public string PaymentIntentId { get; set; } = String.Empty;
 
-        public decimal GetTotal=> SubTotal + DeliveryMethod.Price;
-        
 
+        public decimal Total => SubTotal + (DeliveryMethod?.Price ?? 0);
     }
 }

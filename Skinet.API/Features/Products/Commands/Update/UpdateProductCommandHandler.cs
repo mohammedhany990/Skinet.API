@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.IdentityModel.Tokens;
-using Skinet.API.DTOs;
 using Skinet.API.Helper;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;

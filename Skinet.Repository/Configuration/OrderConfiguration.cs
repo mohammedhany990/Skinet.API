@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Skinet.Core.Entities.Order;
 
 namespace Skinet.Repository.Configuration
 {
-    public class OrderConfiguration: IEntityTypeConfiguration<Order>
+    public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
@@ -26,7 +21,7 @@ namespace Skinet.Repository.Configuration
             builder.HasMany(o => o.OrderItems)
                 .WithOne().OnDelete(DeleteBehavior.Cascade);
 
-           
+
 
             builder.HasOne(o => o.DeliveryMethod)
                 .WithMany()

@@ -4,7 +4,7 @@ using Skinet.Core.Helper;
 
 namespace Skinet.API.Features.ProductBrands.Queries.Get
 {
-    public class GetByIdProductBrandQuery:IRequest<BaseResponse<ProductBrandModel>>
+    public class GetByIdProductBrandQuery : IRequest<BaseResponse<ProductBrandModel>>
     {
         public GetByIdProductBrandQuery(int id)
         {

@@ -29,7 +29,7 @@ namespace Skinet.API.Features.Favorites.Commands.RemoveFromFavorites
                     StatusCode = 401
                 };
             }
-            
+
             var result = await _favoriteService.RemoveFromFavoritesAsync(userId, request.ProductId);
 
             bool success = result == "Item removed from favorites.";
@@ -37,7 +37,7 @@ namespace Skinet.API.Features.Favorites.Commands.RemoveFromFavorites
 
             return new BaseResponse<string>
             {
-                Success = success ,
+                Success = success,
                 Message = result,
                 StatusCode = statusCode
             };

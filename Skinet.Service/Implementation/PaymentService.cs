@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Skinet.Core.Entities.Basket;
+using Skinet.Core.Entities.Cart;
 using Skinet.Core.Entities.Order;
 using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
-using Skinet.Repository;
 using Skinet.Service.Interfaces;
 using Stripe;
 using Product = Skinet.Core.Entities.Product;
@@ -20,53 +19,49 @@ namespace Skinet.Service.Implementation
             _unitOfWork = unitOfWork;
             _configuration = configuration;
         }
-        public async Task<CustomerBasket?> CreateOrUpdatePaymentIntentAsync(string basketId)
+
+        public async Task<Cart?> CreateOrUpdatePaymentIntentAsync(string cartId)
         {
-            // 1. Secret Key
             StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
 
-            // 2. Basket 
-            var basket = await _unitOfWork.BasketRepository.GetBasketAsync(basketId);
-            if (basket is null)
-            {
-                return null;
-            }
-            // Initializing Shipping Price 
-            var shippingPrice = 0M;
+            var cart = await _unitOfWork.CartRepository.GetCartAsync(cartId);
 
+            if (cart is null) return null;
 
-            if (basket.DeliveryMethodId.HasValue)
+            decimal shippingPrice = 0M;
+
+            if (cart.DeliveryMethodId.HasValue)
             {
-                var delivery = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(basket.DeliveryMethodId.Value);
+                var delivery = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(cart.DeliveryMethodId.Value);
                 shippingPrice = delivery.Price;
-                basket.ShippingPrice = shippingPrice;
+                cart.ShippingPrice = shippingPrice;
             }
 
-            // 3. Total
-            if (basket.Items.Count > 0)
+            // If the cart has items, ensure prices are updated
+            if (cart.Items.Any())
             {
-                var productRepository = _unitOfWork.Repository<Product>();
+                var productIds = cart.Items.Select(i => i.ProductId).ToList();// List of all product IDs
+                var products = await _unitOfWork.Repository<Product>()
+                    .GetAllAsync(p => productIds.Contains(p.Id));
 
-                foreach (var item in basket.Items)
+                foreach (var item in cart.Items)
                 {
-                    var product = await productRepository.GetByIdAsync(item.Id);
-
-                    if (product.Price != item.Price)
+                    var product = products.FirstOrDefault(p => p.Id == item.ProductId);
+                    if (product is not null && product.Price != item.Price)
                     {
                         item.Price = product.Price;
                     }
                 }
             }
 
-            var subTotal = basket.Items.Sum(I => I.Price * I.Quantity);
 
 
-            // 4. Create Payment Intent
-            var Service = new PaymentIntentService();
+            var subTotal = cart.Items.Sum(item => item.Price * item.Quantity);
 
+            var service = new PaymentIntentService();
             PaymentIntent paymentIntent;
 
-            if (string.IsNullOrEmpty(basket.PaymentIntentId)) // Create
+            if (string.IsNullOrEmpty(cart.PaymentIntentId)) // Create
             {
                 var options = new PaymentIntentCreateOptions()
                 {
@@ -74,9 +69,9 @@ namespace Skinet.Service.Implementation
                     Currency = "usd",
                     PaymentMethodTypes = new List<string>() { "card" }
                 };
-                paymentIntent = await Service.CreateAsync(options);
-                basket.PaymentIntentId = paymentIntent.Id;
-                basket.ClientSecret = paymentIntent.ClientSecret;
+                paymentIntent = await service.CreateAsync(options);
+                cart.PaymentIntentId = paymentIntent.Id;
+                cart.ClientSecret = paymentIntent.ClientSecret;
             }
             else // Update
             {
@@ -84,35 +79,53 @@ namespace Skinet.Service.Implementation
                 {
                     Amount = (long)(subTotal * 100 + shippingPrice * 100),
                 };
-                paymentIntent = await Service.UpdateAsync(basket.PaymentIntentId, options);
-                basket.PaymentIntentId = paymentIntent.Id;
-                basket.ClientSecret = paymentIntent.ClientSecret;
+                paymentIntent = await service.UpdateAsync(cart.PaymentIntentId, options);
+                cart.PaymentIntentId = paymentIntent.Id;
+                cart.ClientSecret = paymentIntent.ClientSecret;
             }
 
-            await _unitOfWork.BasketRepository.UpdateOrCreateBasketAsync(basket);
+            await _unitOfWork.CartRepository.UpdateCartAsync(cart.UserId, cart);
 
-            return basket;
-
+            return cart;
         }
 
-        public async Task<Order?> UpdateOrderStatusAsync(string paymentIntentId, bool isPaid)
+
+        public async Task<Order?> ConfirmPaymentAndUpdateOrderAsync(string paymentIntentId)
+        {
+            bool paymentSucceeded = await ConfirmPaymentAsync(paymentIntentId);
+            OrderStatus status = paymentSucceeded ? OrderStatus.PaymentReceived : OrderStatus.PaymentFailed;
+
+            return await UpdateOrderStatusAsync(paymentIntentId, status);
+        }
+
+        private async Task<Order?> UpdateOrderStatusAsync(string paymentIntentId, OrderStatus status)
         {
             var spec = new OrderWithPaymentIntentSpecification(paymentIntentId);
-
             var order = await _unitOfWork.Repository<Order>().GetWithSpecAsync(spec);
 
-            if (order is null)
-            {
-                return null;
-            }
-            order.Status = isPaid ? OrderStatus.PaymentReceived
-                : OrderStatus.PaymentFailed;
+            if (order is null) return null;
 
-
+            order.Status = status;
             _unitOfWork.Repository<Order>().Update(order);
             await _unitOfWork.CompleteAsync();
 
             return order;
+        }
+
+        private async Task<bool> ConfirmPaymentAsync(string paymentIntentId)
+        {
+            StripeConfiguration.ApiKey = _configuration["StripeSettings:SecretKey"];
+
+            var service = new PaymentIntentService();
+            try
+            {
+                var paymentIntent = await service.GetAsync(paymentIntentId);
+                return paymentIntent.Status == "succeeded";
+            }
+            catch (StripeException)
+            {
+                return false;
+            }
         }
     }
 }

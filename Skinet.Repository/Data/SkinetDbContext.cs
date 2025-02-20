@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entities;
 using Skinet.Core.Entities.Order;
+using System.Reflection;
 
 namespace Skinet.Repository.Data
 {
     public class SkinetDbContext : DbContext
     {
-        public SkinetDbContext(DbContextOptions<SkinetDbContext> options):base(options)
+        public SkinetDbContext(DbContextOptions<SkinetDbContext> options) : base(options)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

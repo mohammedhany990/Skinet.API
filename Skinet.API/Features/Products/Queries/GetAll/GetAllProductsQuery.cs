@@ -1,13 +1,11 @@
 ﻿using MediatR;
-using Skinet.API.DTOs;
 using Skinet.API.Features.Products.Models;
-using Skinet.API.Helper;
 using Skinet.Core.Helper;
 using Skinet.Core.Specifications;
 
 namespace Skinet.API.Features.Products.Queries.GetAll
 {
-    public class GetAllProductsQuery  :IRequest<BaseResponse<List<ProductModel>>>
+    public class GetAllProductsQuery : IRequest<BaseResponse<List<ProductModel>>>
     {
         public GetAllProductsQuery(ProductSpecificationParameters? parameters)
         {

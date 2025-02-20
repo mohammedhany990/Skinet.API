@@ -40,7 +40,7 @@ namespace Skinet.API.Features.Favorites.Commands.ClearFavorites
                 Success = success,
                 Message = result,
                 StatusCode = statusCode
-                
+
             };
         }
     }

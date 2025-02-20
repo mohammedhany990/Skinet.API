@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Skinet.API.Features.Orders.Models
+﻿namespace Skinet.API.Features.Orders.Models
 {
     public class AddressModel
     {

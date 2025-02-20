@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Skinet.API.DTOs.Order;
 using Skinet.API.Features.Orders.Models;
 using Skinet.Core.Entities.Order;
 

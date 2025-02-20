@@ -1,33 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skinet.Core.Entities.Cart
+﻿namespace Skinet.Core.Entities.Cart
 {
     public class Cart
     {
-        public Cart()
+        public Cart() { }
+
+        public Cart(string userId)
         {
-            
-        }
-        public Cart(string cartId, string userId)
-        {
-            Id = cartId;
+            Id = Guid.NewGuid().ToString();
             UserId = userId;
         }
 
+        public string Id { get; set; }
+        public string UserId { get; set; }
+        public List<CartItem> Items { get; set; } = new List<CartItem>();
+        public decimal Total { get; private set; }  // Made it private set to ensure consistency
+        public int? DeliveryMethodId { get; set; }
+        public decimal ShippingPrice { get; set; }
 
-        public string Id { get; set; } 
-        public string UserId { get; set; } 
-        public List<CartItem> Items { get; set; } = new List<CartItem>(); 
-        public decimal Total { get; set; }
+        public string? PaymentIntentId { get; set; } // Stripe PaymentIntent tracking
+        public string? ClientSecret { get; set; } // Stripe Client Secret for frontend payment
+        public bool IsPaymentConfirmed { get; set; } = false; // Tracks payment status
 
-        
         public void CalculateTotal()
         {
-            Total = Items.Sum(item => item.Quantity * item.Price);
+            Total = Items.Sum(item => item.TotalPrice) + ShippingPrice; // Using TotalPrice for clarity
         }
     }
 }

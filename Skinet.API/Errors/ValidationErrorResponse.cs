@@ -10,6 +10,6 @@ namespace Skinet.API.Errors
             Errors = new List<string>();
         }
 
-       
+
     }
 }

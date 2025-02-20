@@ -1,9 +1,9 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Skinet.API.Features.Favorites.Models;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 using System.Security.Claims;
-using AutoMapper;
 
 namespace Skinet.API.Features.Favorites.Queries.GetUserFavoritesQuery
 {
@@ -47,7 +47,7 @@ namespace Skinet.API.Features.Favorites.Queries.GetUserFavoritesQuery
                 };
             }
 
-           
+
             var favoriteItemModels = _mapper.Map<List<FavoriteItemModel>>(favoriteItems);
 
             return new BaseResponse<List<FavoriteItemModel>>

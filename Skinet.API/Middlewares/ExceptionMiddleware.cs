@@ -1,7 +1,6 @@
-﻿using System.Text.Json;
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
 using Skinet.API.Errors;
+using System.Text.Json;
 
 namespace Skinet.API.Middlewares
 {
@@ -24,7 +23,7 @@ namespace Skinet.API.Middlewares
             {
                 await _next.Invoke(httpContext);
             }
-            catch (ValidationException ex) 
+            catch (ValidationException ex)
             {
                 httpContext.Response.ContentType = "application/json";
                 httpContext.Response.StatusCode = 400;
@@ -40,7 +39,7 @@ namespace Skinet.API.Middlewares
                 {
                     Errors = errors
                 };
-                var json = JsonSerializer.Serialize( result, options);
+                var json = JsonSerializer.Serialize(result, options);
                 await httpContext.Response.WriteAsync(json);
             }
             catch (Exception ex)

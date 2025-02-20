@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skinet.Core.Entities.Order
+﻿namespace Skinet.Core.Entities.Order
 {
-    public class OrderItem: BaseEntity
+    public class OrderItem : BaseEntity
     {
         public OrderItem()
         {

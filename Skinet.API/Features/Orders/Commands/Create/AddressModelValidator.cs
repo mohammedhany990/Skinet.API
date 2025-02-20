@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Skinet.API.Features.Orders.Models;
+﻿using Skinet.API.Features.Orders.Models;
 
 namespace Skinet.API.Features.Orders.Commands.Create
 {

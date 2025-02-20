@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.DTOs;
 using Skinet.API.Features.Products.Models;
-using Skinet.Core.Entities;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 

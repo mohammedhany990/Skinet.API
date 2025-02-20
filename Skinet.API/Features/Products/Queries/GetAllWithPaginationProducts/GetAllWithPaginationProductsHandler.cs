@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using Azure;
 using MediatR;
-using Skinet.API.DTOs;
 using Skinet.API.Features.Products.Models;
 using Skinet.API.Helper;
 using Skinet.Service.Interfaces;

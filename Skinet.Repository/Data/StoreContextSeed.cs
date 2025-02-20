@@ -1,16 +1,11 @@
-﻿using Skinet.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Skinet.Core.Entities;
 using Skinet.Core.Entities.Order;
+using System.Text.Json;
 
 namespace Skinet.Repository.Data
 {
-    public  class StoreContextSeed
+    public class StoreContextSeed
     {
         public static async Task SeedDataAsync(SkinetDbContext dbContext, ILoggerFactory loggerFactory)
         {

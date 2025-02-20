@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Skinet.API.Features.ProductTypes.Models;
-using Skinet.Core.Entities;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Features.ProductTypes.Queries.GetById

@@ -6,6 +6,6 @@ namespace Skinet.API.Features.Favorites.Queries.GetUserFavoritesQuery
 {
     public class GetUserFavoritesQuery : IRequest<BaseResponse<List<FavoriteItemModel>>>
     {
-        
+
     }
 }

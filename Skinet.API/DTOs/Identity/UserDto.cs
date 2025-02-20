@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Skinet.API.DTOs.Identity
+﻿namespace Skinet.API.DTOs.Identity
 {
     public class UserDto
     {

@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.DTOs;
-using Skinet.API.Features.Orders.Models;
 using Skinet.API.Features.Products.Models;
 
 using Skinet.Core.Helper;

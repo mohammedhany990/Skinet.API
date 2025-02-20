@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Skinet.Core.Helper;
-using Skinet.Service.Implementation;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.API.Features.ProductBrands.Commands.Update

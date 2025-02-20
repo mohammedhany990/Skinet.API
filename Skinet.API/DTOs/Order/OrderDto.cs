@@ -1,6 +1,4 @@
-﻿using Skinet.API.DTOs.Identity;
-
-namespace Skinet.API.DTOs.Order
+﻿namespace Skinet.API.DTOs.Order
 {/*
     public class OrderDto
     {

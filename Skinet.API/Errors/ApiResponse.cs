@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Skinet.API.Errors
 {
@@ -9,7 +8,7 @@ namespace Skinet.API.Errors
         public int StatusCode { get; set; }
         [JsonPropertyOrder(2)]
         public string Message { get; set; }
-        public ApiResponse(int statusCode, string? message =null)
+        public ApiResponse(int statusCode, string? message = null)
         {
             StatusCode = statusCode;
             Message = message ?? GetDefaultMsg(statusCode);

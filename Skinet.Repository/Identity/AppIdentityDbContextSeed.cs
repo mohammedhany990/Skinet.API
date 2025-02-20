@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Skinet.Core.Entities.Identity;
 
 namespace Skinet.Repository.Identity
@@ -18,18 +13,18 @@ namespace Skinet.Repository.Identity
                 {
                     DisplayName = "Hany",
                     Email = "mohammed@gmail.com",
-                     UserName = "mohammed",
-                     Address = new Address
-                     {
-                         FirstName = "Mohammed",
-                         LastName = "Hany",
-                         Street = "123",
-                         City = "Shebin",
-                         State = "Egypt",
-                         ZipCode = "12345"
-                     }
+                    UserName = "mohammed",
+                    Address = new Address
+                    {
+                        FirstName = "Mohammed",
+                        LastName = "Hany",
+                        Street = "123",
+                        City = "Shebin",
+                        State = "Egypt",
+                        ZipCode = "12345"
+                    }
                 };
-                await userManager.CreateAsync(user, "Abcd"); 
+                await userManager.CreateAsync(user, "Abcd");
             }
         }
     }

@@ -1,7 +1,5 @@
 ﻿using MediatR;
-using Skinet.Core.Entities;
 using Skinet.Core.Helper;
-using System.ComponentModel.DataAnnotations;
 
 namespace Skinet.API.Features.Products.Commands.Create
 {

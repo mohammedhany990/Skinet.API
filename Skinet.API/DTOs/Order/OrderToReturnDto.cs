@@ -1,6 +1,4 @@
-﻿using Skinet.Core.Entities.Order;
-
-namespace Skinet.API.DTOs.Order
+﻿namespace Skinet.API.DTOs.Order
 {/*
     public class OrderToReturnDto
     {

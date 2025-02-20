@@ -1,7 +1,4 @@
-﻿using Skinet.API.DTOs.Order;
-using Skinet.Core.Entities.Order;
-
-namespace Skinet.API.Features.Orders.Models
+﻿namespace Skinet.API.Features.Orders.Models
 {
     public class OrderModel
     {

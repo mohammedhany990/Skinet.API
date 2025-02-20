@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.DTOs.Order;
-using Skinet.API.Errors;
 using Skinet.API.Features.Orders.Models;
 using Skinet.Core.Helper;
 using Skinet.Core.Interfaces;
@@ -46,7 +44,7 @@ namespace Skinet.API.Features.Orders.Queries.GetByIdSpecificOrderForUser
 
             var mappedOrder = _mapper.Map<OrderModel>(order);
 
-            return new BaseResponse<OrderModel>(200, true, 1,mappedOrder, "Order retrieved successfully."); 
+            return new BaseResponse<OrderModel>(200, true, 1, mappedOrder, "Order retrieved successfully.");
         }
     }
 

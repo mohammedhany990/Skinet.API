@@ -2,7 +2,7 @@
 
 namespace Skinet.API.Features.Products.Commands.Update
 {
-    public class UpdateProductCommandValidator:AbstractValidator<UpdateProductCommand>
+    public class UpdateProductCommandValidator : AbstractValidator<UpdateProductCommand>
     {
         public UpdateProductCommandValidator()
         {
@@ -12,13 +12,13 @@ namespace Skinet.API.Features.Products.Commands.Update
 
             RuleFor(x => x.Description)
                 .Length(10, int.MaxValue)
-                .When(x => x.Description != null) 
+                .When(x => x.Description != null)
                 .WithMessage("Description must be at least 10 characters long.");
 
 
             RuleFor(x => x.Price)
                 .GreaterThan(0)
-                .When(x=> x.Price != null)
+                .When(x => x.Price != null)
                 .WithMessage("Price must be greater than zero.");
 
             RuleFor(x => x.ProductBrandId)

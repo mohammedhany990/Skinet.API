@@ -1,10 +1,6 @@
-﻿using MediatR;
-using Skinet.Core.Helper;
-using Skinet.Service.Interfaces;
-using Stripe;
-
-namespace Skinet.API.Features.Payments.Commands.Webhook
+﻿namespace Skinet.API.Features.Payments.Commands.Webhook
 {
+    /*
     public class WebhookCommandHandler : IRequestHandler<WebhookCommand, BaseResponse<string>>
     {
         private readonly IPaymentService _paymentService;
@@ -58,5 +54,7 @@ namespace Skinet.API.Features.Payments.Commands.Webhook
             }
         }
     }
+
+    */
 
 }

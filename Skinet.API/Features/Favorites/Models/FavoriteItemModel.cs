@@ -1,5 +1,4 @@
 ﻿using Skinet.API.Features.Products.Models;
-using Skinet.Core.Entities;
 
 namespace Skinet.API.Features.Favorites.Models
 {

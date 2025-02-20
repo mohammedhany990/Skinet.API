@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entities;
 using Skinet.Core.Specifications;
 
@@ -34,8 +29,8 @@ namespace Skinet.Repository
             }
 
             query = specification?.Includes.Aggregate(query, (currentQ, exp) => currentQ.Include(exp));
-            
-            
+
+
             return query;
         }
     }

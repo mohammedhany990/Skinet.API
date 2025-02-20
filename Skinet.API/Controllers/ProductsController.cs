@@ -24,15 +24,15 @@ namespace Skinet.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<List<ProductModel>>>> GetAllProducts([FromQuery]ProductSpecificationParameters? parameters)
+        public async Task<ActionResult<BaseResponse<List<ProductModel>>>> GetAllProducts([FromQuery] ProductSpecificationParameters? parameters)
         {
-            var response =await _mediator.Send(new GetAllProductsQuery(parameters));
-            return Ok( response);
+            var response = await _mediator.Send(new GetAllProductsQuery(parameters));
+            return Ok(response);
         }
         [HttpGet("get-all")]
         public async Task<ActionResult<Pagination<List<ProductModel>>>> GetAllProductsWithPagination([FromQuery] ProductSpecificationParameters? parameters)
         {
-            var response = await _mediator.Send(new GetAllWithPaginationProductsQuery(parameters) );
+            var response = await _mediator.Send(new GetAllWithPaginationProductsQuery(parameters));
             return Ok(response);
         }
 

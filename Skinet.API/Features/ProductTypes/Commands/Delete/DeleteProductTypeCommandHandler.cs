@@ -12,7 +12,7 @@ namespace Skinet.API.Features.ProductTypes.Commands.Delete
         {
             _productTypeService = productTypeService;
         }
-        public  async Task<BaseResponse<string>> Handle(DeleteProductTypeCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> Handle(DeleteProductTypeCommand request, CancellationToken cancellationToken)
         {
             var type = await _productTypeService.GetProductTypeByIdAsync(request.Id);
             if (type is null)

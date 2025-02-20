@@ -5,7 +5,7 @@ using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 namespace Skinet.API.Features.ProductBrands.Queries.List
 {
-    public class GetAllProductBrandsHandler : IRequestHandler< GetAllProductBrandsQuery, BaseResponse<List<ProductBrandModel>>>
+    public class GetAllProductBrandsHandler : IRequestHandler<GetAllProductBrandsQuery, BaseResponse<List<ProductBrandModel>>>
     {
         private readonly IProductBrandService _productBrandService;
         private readonly IMapper _mapper;

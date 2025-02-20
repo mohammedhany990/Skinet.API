@@ -4,7 +4,7 @@ using Skinet.Core.Helper;
 
 namespace Skinet.API.Features.ProductTypes.Queries.List
 {
-    public class GetAllProductTypesQuery:IRequest<BaseResponse<List<ProductTypeModel>>>
+    public class GetAllProductTypesQuery : IRequest<BaseResponse<List<ProductTypeModel>>>
     {
 
     }

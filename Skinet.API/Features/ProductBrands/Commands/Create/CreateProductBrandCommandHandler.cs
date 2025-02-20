@@ -28,13 +28,13 @@ namespace Skinet.API.Features.ProductBrands.Commands.Create
                     StatusCode = StatusCodes.Status400BadRequest
                 };
             }
-            var mappedBrand = _mapper.Map<ProductBrand> (request);
+            var mappedBrand = _mapper.Map<ProductBrand>(request);
             var result = await _productBrandService.AddProductBrandAsync(mappedBrand);
             return new BaseResponse<string>
             {
-                 Success = true,
-                 StatusCode = StatusCodes.Status200OK,
-                 Message = result
+                Success = true,
+                StatusCode = StatusCodes.Status200OK,
+                Message = result
             };
         }
     }

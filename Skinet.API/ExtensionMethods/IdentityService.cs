@@ -1,11 +1,11 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Skinet.Core.Entities.Identity;
 using Skinet.Core.Interfaces;
 using Skinet.Repository.Identity;
 using Skinet.Service.Implementation;
+using System.Text;
 
 namespace Skinet.API.ExtensionMethods
 {

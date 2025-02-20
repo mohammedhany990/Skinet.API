@@ -1,11 +1,4 @@
-﻿using Skinet.Core.Entities.Order;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Skinet.Core.Specifications
+﻿namespace Skinet.Core.Specifications
 {
     public class OrderSpecification : BaseSpecification<Entities.Order.Order>
     {

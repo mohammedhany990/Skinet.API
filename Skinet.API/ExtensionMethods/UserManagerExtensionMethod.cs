@@ -1,7 +1,7 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entities.Identity;
+using System.Security.Claims;
 
 namespace Skinet.API.ExtensionMethods
 {
@@ -11,7 +11,7 @@ namespace Skinet.API.ExtensionMethods
             ClaimsPrincipal User)
         {
             var email = User.FindFirstValue(ClaimTypes.Email);
-            var user =await manager.Users.Include(A => A.Address)
+            var user = await manager.Users.Include(A => A.Address)
                 .FirstOrDefaultAsync(E => E.NormalizedEmail == email);
 
             return user;
