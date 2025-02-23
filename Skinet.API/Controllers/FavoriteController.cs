@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Favorites.Commands.ClearFavorites;
 using Skinet.API.Features.Favorites.Commands.Create;
@@ -10,6 +11,7 @@ using Skinet.Core.Helper;
 namespace Skinet.API.Controllers
 {
     [ApiVersion("1.0")]
+    [Authorize]
     public class FavoriteController : ApiBaseController
     {
         private readonly IMediator _mediator;

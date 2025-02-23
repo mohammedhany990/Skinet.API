@@ -10,6 +10,7 @@ namespace Skinet.Core.Interfaces
 
         Task<Order?> GetOrderByIdAsync(int orderId, string buyerEmail);
 
+
         Task<IEnumerable<Order>> GetOrdersForUserAsync(string buyerEmail);
 
         //Task<IEnumerable<Order>> GetAllOrdersAsync();

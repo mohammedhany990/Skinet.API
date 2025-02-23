@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Products.Commands.Create;
 using Skinet.API.Features.Products.Commands.Delete;
@@ -29,6 +30,7 @@ namespace Skinet.API.Controllers
             var response = await _mediator.Send(new GetAllProductsQuery(parameters));
             return Ok(response);
         }
+        [MapToApiVersion("1.0")]
         [HttpGet("get-all")]
         public async Task<ActionResult<Pagination<List<ProductModel>>>> GetAllProductsWithPagination([FromQuery] ProductSpecificationParameters? parameters)
         {
@@ -46,6 +48,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("add-product")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<BaseResponse<string>>> CreateProduct([FromForm] CreateProductCommand command)
         {
             var response = await _mediator.Send(command);
@@ -53,6 +56,7 @@ namespace Skinet.API.Controllers
         }
 
         [MapToApiVersion("1.0")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("update")]
         public async Task<ActionResult<BaseResponse<string>>> UpdateProduct([FromForm] UpdateProductCommand command)
         {
@@ -60,6 +64,7 @@ namespace Skinet.API.Controllers
             return Ok(response);
         }
         [MapToApiVersion("1.0")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delete")]
         public async Task<ActionResult<BaseResponse<string>>> UpdateProduct([FromForm] DeleteProductCommand command)
         {

@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.ProductTypes.Commands.Create;
 using Skinet.API.Features.ProductTypes.Commands.Delete;
@@ -40,6 +41,7 @@ namespace Skinet.API.Controllers
         }
 
         [MapToApiVersion("1.0")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("update")]
         public async Task<ActionResult<BaseResponse<string>>> Update(UpdateProductTypeCommand command)
         {
@@ -47,6 +49,7 @@ namespace Skinet.API.Controllers
             return Ok(response);
         }
 
+        [Authorize(Roles = "Admin")]
         [MapToApiVersion("1.0")]
         [HttpDelete]
         public async Task<ActionResult<BaseResponse<string>>> Delete(DeleteProductTypeCommand command)
@@ -56,6 +59,7 @@ namespace Skinet.API.Controllers
         }
 
         [MapToApiVersion("1.0")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<BaseResponse<string>>> Create(CreateProductTypeCommand command)
         {

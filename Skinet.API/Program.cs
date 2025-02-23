@@ -9,6 +9,7 @@ using Skinet.API.ExtensionMethods;
 using Skinet.API.Middlewares;
 using Skinet.Core.Entities.Identity;
 using Skinet.Repository.Data;
+using Skinet.Repository.Email;
 using Skinet.Repository.Identity;
 using StackExchange.Redis;
 using System.Reflection;
@@ -94,7 +95,10 @@ namespace Skinet.API
                 cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+            builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
 
             //builder.Services.AddControllers()

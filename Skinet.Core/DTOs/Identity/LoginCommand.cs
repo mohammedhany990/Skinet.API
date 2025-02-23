@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using Skinet.Core.Helper;
 
 namespace Skinet.API.DTOs.Identity
 {
-    public class LoginDto
+    public class LoginCommand : IRequest<BaseResponse<UserResponse>>
     {
-        [Required]
-        [EmailAddress]
         public string Email { get; set; }
-        [Required]
         public string Password { get; set; }
     }
 }

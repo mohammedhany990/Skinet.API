@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Carts.Commands.Create;
 using Skinet.API.Features.Carts.Commands.Delete;
@@ -14,6 +15,7 @@ using Skinet.Core.Helper;
 namespace Skinet.API.Controllers
 {
     [ApiVersion("1.0")]
+    [Authorize]
     public class CartController : ApiBaseController
     {
         private readonly IMediator _mediator;

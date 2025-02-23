@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Skinet.API.Features.Carts.Commands.Create;
 using Skinet.API.Features.Carts.Models;
 using Skinet.API.Features.Favorites.Models;
 using Skinet.API.Features.Orders.Models;
@@ -61,7 +60,7 @@ namespace Skinet.API.Helper
 
             CreateMap<CreateProductTypeCommand, ProductType>();
             CreateMap<CreateProductBrandCommand, ProductBrand>();
-           
+
 
 
             CreateMap<AddressModel, UserOrderAddress>().ReverseMap();

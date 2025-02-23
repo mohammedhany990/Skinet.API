@@ -3,7 +3,9 @@ using Skinet.API.Errors;
 using Skinet.API.Helper;
 using Skinet.Core.Interfaces;
 using Skinet.Repository.Abstracts;
+using Skinet.Repository.Email;
 using Skinet.Repository.Implementation;
+using Skinet.Service.Abstracts;
 using Skinet.Service.Implementation;
 using Skinet.Service.Interfaces;
 
@@ -24,6 +26,9 @@ namespace Skinet.API.ExtensionMethods
             services.AddScoped(typeof(ICartRepository), typeof(CartRepository));
             services.AddScoped(typeof(ICartService), typeof(CartService));
             services.AddScoped(typeof(ICartRepositoryFactory), typeof(CartRepositoryFactory));
+            services.AddScoped(typeof(IAuthService), typeof(AuthService));
+            services.AddScoped(typeof(IEmailSettings), typeof(EmailSettings));
+            services.AddScoped(typeof(IAuthorizationServices), typeof(AuthorizationServices));
 
 
 
@@ -32,23 +37,20 @@ namespace Skinet.API.ExtensionMethods
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
-                options.InvalidModelStateResponseFactory = (action) =>
+                options.SuppressModelStateInvalidFilter = true;
+
+                options.InvalidModelStateResponseFactory = (actionContext) =>
                 {
-                    var errors = action.ModelState
-                        .Where(e => e.Value.Errors.Count() > 0)
+                    var errors = actionContext.ModelState
+                        .Where(e => e.Value.Errors.Count > 0)
                         .SelectMany(e => e.Value.Errors)
                         .Select(m => m.ErrorMessage)
                         .ToList();
 
-                    var response = new ValidationErrorResponse()
-                    {
-                        Errors = errors
-                    };
-                    return new BadRequestObjectResult(response);
+                    return new BadRequestObjectResult(new ValidationErrorResponse(errors));
                 };
-
-
             });
+
 
             return services;
         }

@@ -1,130 +1,76 @@
-﻿using AutoMapper;
+﻿using Asp.Versioning;
+using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs.Identity;
 using Skinet.API.Errors;
 using Skinet.API.ExtensionMethods;
+using Skinet.API.Features.Authentication.Commands.Delete;
+using Skinet.API.Features.Authentication.Commands.ForgotPassword;
+using Skinet.API.Features.Authentication.Commands.SendOtp;
+using Skinet.API.Features.Authentication.Commands.VerifyOtp;
+using Skinet.Core.DTOs.Identity;
 using Skinet.Core.Entities.Identity;
+using Skinet.Core.Helper;
 using Skinet.Core.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 
 namespace Skinet.API.Controllers
 {
-
+    [ApiVersion("1.0")]
     public class AccountController : ApiBaseController
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IAuthService _tokenService;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
 
         public AccountController(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
             IAuthService tokenService,
-            IMapper mapper)
+            IMapper mapper,
+            IMediator mediator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
             _mapper = mapper;
+            _mediator = mediator;
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
+        [MapToApiVersion("1.0")]
+        public async Task<ActionResult<BaseResponse<UserResponse>>> Login(LoginCommand command)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            if (user is null)
-            {
-                return NotFound(new ApiResponse(404));
-            }
-
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
-            if (!result.Succeeded)
-            {
-                return Unauthorized(new ApiResponse(401));
-            }
-            var jwtSecurityToken = await _tokenService.CreateTokenAsync(user, _userManager);
-
-            var returnedUser = new UserDto
-            {
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
-            };
-            return Ok(returnedUser);
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
 
+
+        [MapToApiVersion("1.0")]
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<BaseResponse<UserResponse>>> Register(RegisterCommand command)
         {
-            if (CheckExisting(registerDto.Email).Result)
-            {
-                return BadRequest(new ApiResponse(400, "This Account Already Exists"));
-            }
-            var user = new AppUser
-            {
-                DisplayName = registerDto.DisplayName,
-                Email = registerDto.Email,
-                UserName = registerDto.Email.Split('@')[0],
-                PhoneNumber = registerDto.PhoneNumber
-
-            };
-
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
-            if (!result.Succeeded)
-            {
-                return BadRequest(new ValidationErrorResponse()
-                {
-                    Errors = result.Errors.Select(E => E.Description)
-                });
-            }
-
-            var jwtSecurityToken = await _tokenService.CreateTokenAsync(user, _userManager);
-
-            var returnedUser = new UserDto()
-            {
-                Email = user.Email,
-                DisplayName = user.DisplayName,
-                Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken)
-            };
-
-
-            return Ok(returnedUser);
-
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
-        #region DeleteAccount
+
 
         [Authorize]
+        [MapToApiVersion("1.0")]
         [HttpDelete("delete")]
         public async Task<ActionResult> DeleteAccount()
         {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var user = await _userManager.FindByEmailAsync(email);
-
-            if (user is not null)
-            {
-                var res = await _userManager.DeleteAsync(user);
-                if (res.Succeeded)
-                {
-                    return Ok(new ApiResponse(200, "Deleted Successfully!"));
-                }
-                else
-                {
-                    return BadRequest(new ApiResponse(400, "Error deleting data."));
-                }
-            }
-            else
-            {
-                return BadRequest(new ApiResponse(400, "User not found"));
-            }
+            var response = await _mediator.Send(new DeleteCommand());
+            return Ok(response);
         }
-        #endregion
-
+        /*
         [Authorize]
+        [MapToApiVersion("1.0")]
         [HttpGet("current-user")]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        public async Task<ActionResult<UserResponse>> GetCurrentUser()
         {
 
             var email = User.FindFirstValue(ClaimTypes.Email);
@@ -132,22 +78,21 @@ namespace Skinet.API.Controllers
             var jwtSecurityToken = await _tokenService.CreateTokenAsync(user, _userManager);
 
 
-            var returnedUser = new UserDto()
+            var returnedUser = new UserResponse()
             {
                 Email = user.Email,
                 DisplayName = user.DisplayName,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
-
-
             };
             return Ok(returnedUser);
         }
-
+        */
         [HttpGet("get-user-address")]
+        [MapToApiVersion("1.0")]
         [Authorize]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
-            var user = await _userManager.FindUserWithAddressAsync(User);
+            var user = await _userManager.FindUserWithAddressAsync("User");
 
             var ReturnesAddress = _mapper.Map<Address, AddressDto>(user.Address);
             if (ReturnesAddress is null)
@@ -158,14 +103,16 @@ namespace Skinet.API.Controllers
             return Ok(ReturnesAddress);
         }
 
+
         #region UpdateAddress
         [Authorize]
+        [MapToApiVersion("1.0")]
         [HttpPut("update-address")]
         public async Task<ActionResult<Address>> UpdateAddress(AddressDto dto)
         {
             var address = _mapper.Map<AddressDto, Address>(dto);
 
-            var user = await _userManager.FindUserWithAddressAsync(User);
+            var user = await _userManager.FindUserWithAddressAsync("User");
 
             address.Id = user.Address.Id;
 
@@ -182,11 +129,51 @@ namespace Skinet.API.Controllers
         #endregion
 
 
-        [HttpGet("email-exists")]
-        public async Task<bool> CheckExisting(string email)
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("send-otp")]
+        public async Task<ActionResult> SndOtp(SendOtpCommand command)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            return user is not null;
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
+
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("verify-otp")]
+        public async Task<ActionResult> VerifySignupOtp(VerifyOtpCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("change-password")]
+        [Authorize]
+        public async Task<ActionResult<BaseResponse<string>>> ChangePassword(ChangePasswordCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("forgot-password")]
+        public async Task<ActionResult<BaseResponse<string>>> ForgotPassword(ForgotPasswordCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("reset-password")]
+        public async Task<ActionResult<BaseResponse<string>>> ResetPassword(ResetPasswordCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
     }
 }

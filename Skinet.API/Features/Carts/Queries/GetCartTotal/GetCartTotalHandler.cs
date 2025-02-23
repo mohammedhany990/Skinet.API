@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Skinet.API.Features.Carts.Models;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 using System.Security.Claims;

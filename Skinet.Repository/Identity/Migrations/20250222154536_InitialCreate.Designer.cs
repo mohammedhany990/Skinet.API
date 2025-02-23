@@ -12,7 +12,7 @@ using Skinet.Repository.Identity;
 namespace Skinet.Repository.Identity.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20250108150418_InitialCreate")]
+    [Migration("20250222154536_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -50,6 +50,14 @@ namespace Skinet.Repository.Identity.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "cd5ea75c-a90a-4d06-b909-89fd825eb88a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -137,6 +145,13 @@ namespace Skinet.Repository.Identity.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "7dd500c4-1a55-4c58-8d42-fb87321a0aca",
+                            RoleId = "cd5ea75c-a90a-4d06-b909-89fd825eb88a"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -200,6 +215,19 @@ namespace Skinet.Repository.Identity.Migrations
                         .IsUnique();
 
                     b.ToTable("Address");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AppUserId = "7dd500c4-1a55-4c58-8d42-fb87321a0aca",
+                            City = "New York",
+                            FirstName = "Admin",
+                            LastName = "User",
+                            State = "NY",
+                            Street = "123 Main St",
+                            ZipCode = "10001"
+                        });
                 });
 
             modelBuilder.Entity("Skinet.Core.Entities.Identity.AppUser", b =>
@@ -269,6 +297,26 @@ namespace Skinet.Repository.Identity.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7dd500c4-1a55-4c58-8d42-fb87321a0aca",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5fad72f1-17e4-4dba-9bd9-22bd6a8b6689",
+                            DisplayName = "Admin",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKylS2vLbukYbfhkUua0/Jyjd/GmuHQkWomkscV+LIsD+B3r2w8svN6l7jolknbTcQ==",
+                            PhoneNumber = "010000",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a6df0785-85e1-4ef6-851f-73f4c57633f3",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -331,6 +379,43 @@ namespace Skinet.Repository.Identity.Migrations
                         .IsRequired();
 
                     b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Skinet.Core.Entities.Identity.AppUser", b =>
+                {
+                    b.OwnsMany("Skinet.Core.Entities.Identity.RefreshToken", "RefreshTokens", b1 =>
+                        {
+                            b1.Property<string>("AppUserId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<DateTime>("CreateOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime>("ExpiresOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime?>("RevokedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("Token")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("AppUserId", "Id");
+
+                            b1.ToTable("RefreshToken");
+
+                            b1.WithOwner()
+                                .HasForeignKey("AppUserId");
+                        });
+
+                    b.Navigation("RefreshTokens");
                 });
 
             modelBuilder.Entity("Skinet.Core.Entities.Identity.AppUser", b =>

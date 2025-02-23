@@ -1,5 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.ProductBrands.Commands.Create;
 using Skinet.API.Features.ProductBrands.Commands.Delete;
@@ -30,13 +31,14 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet("{id}")]
-        public async Task<ActionResult<BaseResponse<ProductBrandModel>>> Brand(int id)
+        public async Task<ActionResult<BaseResponse<ProductBrandModel>>> Brand([FromRoute] int id)
         {
             var response = await _mediator.Send(new GetByIdProductBrandQuery(id));
             return Ok(response);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> Create(CreateProductBrandCommand command)
         {
@@ -45,6 +47,7 @@ namespace Skinet.API.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> Delete(DeleteProductBrandCommand command)
         {
@@ -53,6 +56,7 @@ namespace Skinet.API.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> Update(UpdateProductBrandCommand command)
         {

@@ -19,12 +19,15 @@ namespace Skinet.Core.Helper
         [JsonPropertyOrder(5)]
         public T? Data { get; set; }
 
+        [JsonPropertyOrder(6)]
+        public IEnumerable<string> Errors { get; set; }
 
 
         public BaseResponse()
         {
 
         }
+
         public BaseResponse(int statusCode, string? message = null)
         {
             StatusCode = statusCode;
@@ -39,6 +42,7 @@ namespace Skinet.Core.Helper
             Success = success;
             Message = message ?? GetDefaultMessageForStatusCode(statusCode);
         }
+
         public BaseResponse(int statusCode, bool success, string? message = null)
         {
             StatusCode = statusCode;
@@ -46,7 +50,8 @@ namespace Skinet.Core.Helper
             Message = message ?? GetDefaultMessageForStatusCode(statusCode);
 
         }
-        public BaseResponse(int statusCode, bool success, T data,string? message = null)
+
+        public BaseResponse(int statusCode, bool success, T? data, string? message = null)
         {
             StatusCode = statusCode;
             Success = success;

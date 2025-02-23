@@ -1,15 +1,17 @@
 ﻿using Skinet.Core.Helper;
+using System.Text.Json.Serialization;
 
 namespace Skinet.API.Errors
 {
-    public class ValidationErrorResponse : BaseResponse<string>
+    public class ValidationErrorResponse : BaseResponse<object>
     {
+        [JsonPropertyOrder(7)]
         public IEnumerable<string> Errors { get; set; }
-        public ValidationErrorResponse() : base(400)
+
+        public ValidationErrorResponse(IEnumerable<string> errors) : base(400, false)
         {
-            Errors = new List<string>();
+            Errors = errors;
         }
-
-
     }
+
 }

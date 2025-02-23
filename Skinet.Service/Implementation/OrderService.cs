@@ -20,8 +20,13 @@ namespace Skinet.Service.Implementation
         }
 
         #region Create Orders
-        public async Task<string> CreateOrderAsync(string userId, string buyerEmail, int deliveryMethodId,
-          string cartId, UserOrderAddress shippingAddress)
+
+        public async Task<string> CreateOrderAsync(
+            string userId,
+            string buyerEmail,
+            int deliveryMethodId,
+            string cartId,
+            UserOrderAddress shippingAddress)
         {
             var cart = await _unitOfWork.CartRepository.GetCartAsync(userId);
 
@@ -35,7 +40,7 @@ namespace Skinet.Service.Implementation
             var subTotal = items.Sum(i => i.Price * i.Quantity);
 
             var deliveryMethod = await _unitOfWork.Repository<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
-            if (deliveryMethod == null)
+            if (deliveryMethod is null)
             {
                 return "Delivery Method not found.";
             }
