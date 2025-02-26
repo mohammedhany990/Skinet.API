@@ -8,6 +8,7 @@ using Skinet.API.Features.ProductBrands.Commands.Update;
 using Skinet.API.Features.ProductBrands.Models;
 using Skinet.API.Features.ProductBrands.Queries.Get;
 using Skinet.API.Features.ProductBrands.Queries.List;
+using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Controllers
@@ -21,6 +22,7 @@ namespace Skinet.API.Controllers
 
             _mediator = mediator;
         }
+        [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet("brands")]
         public async Task<ActionResult<BaseResponse<List<ProductBrandModel>>>> Brands()

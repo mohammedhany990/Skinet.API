@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Skinet.API.DTOs.Identity;
 using Skinet.API.Features.Carts.Models;
 using Skinet.API.Features.Favorites.Models;
 using Skinet.API.Features.Orders.Models;
@@ -80,6 +81,8 @@ namespace Skinet.API.Helper
 
 
             CreateMap<FavoriteItem, FavoriteItemModel>();
+
+            CreateMap<DeliveryMethod, DeliveryMethodModel>();
 
 
             CreateMap<Cart, CartModel>()

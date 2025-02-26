@@ -23,7 +23,7 @@
 
         public void CalculateTotal()
         {
-            Total = Items.Sum(item => item.TotalPrice) + ShippingPrice; // Using TotalPrice for clarity
+            Total = Items.Sum(item => item.TotalPrice) + ShippingPrice ; // Using TotalPrice for clarity
         }
     }
 }

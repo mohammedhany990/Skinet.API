@@ -8,8 +8,8 @@ namespace Skinet.API.Features.Carts.Commands.Update
         public string? ClientSecret { get; set; }
         public string? PaymentIntentId { get; set; }
         public int? DeliveryMethodId { get; set; }
-        public decimal ShippingPrice { get; set; }
-        public bool IsPaymentConfirmed { get; set; } = false;
+        //public decimal ShippingPrice { get; set; }
+        //public bool IsPaymentConfirmed { get; set; } = false;
 
     }
 }

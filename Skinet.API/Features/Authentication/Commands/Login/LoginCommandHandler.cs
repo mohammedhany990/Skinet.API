@@ -16,13 +16,13 @@ namespace Skinet.API.Features.Authentication.Commands.Login
         }
         public async Task<BaseResponse<UserResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var user = await _authService.CheckExisting(request.Email);
+            var user = await _authService.CheckExistingUserByEmailAsync(request.Email);
             if (!user)
             {
                 return new BaseResponse<UserResponse>(404, false, "There is no account for this User.");
             }
 
-            if (await _authService.IsEmailConfirmed(request.Email) == false)
+            if (await _authService.IsEmailConfirmedAsync(request.Email) == false)
             {
                 return new BaseResponse<UserResponse>(400, false, "Email is not confirmed.");
             }

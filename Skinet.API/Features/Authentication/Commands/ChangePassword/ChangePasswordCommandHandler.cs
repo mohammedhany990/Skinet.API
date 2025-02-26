@@ -15,7 +15,7 @@ namespace Skinet.API.Features.Authentication.Commands.ChangePassword
         }
         public async Task<BaseResponse<string>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
         {
-            var existingEmail = await _authService.CheckExisting(request.Email);
+            var existingEmail = await _authService.CheckExistingUserByEmailAsync(request.Email);
             if (!existingEmail)
             {
                 return new BaseResponse<string>(404, false, "This Email is not registered.");

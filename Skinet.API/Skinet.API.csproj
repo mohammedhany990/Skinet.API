@@ -31,12 +31,8 @@
   <ItemGroup>
     <Folder Include="Features\Authentication\Queries\" />
     <Folder Include="Features\Orders\Commands\Delete\" />
-    <Folder Include="Features\Orders\Commands\Update\" />
-    <Folder Include="Features\Payments\Commands\Delete\" />
     <Folder Include="Features\Payments\Queries\Get\" />
     <Folder Include="Features\Payments\Queries\List\" />
-    <Folder Include="Features\User\Commands\" />
-    <Folder Include="Features\User\Queries\" />
   </ItemGroup>
 
 </Project>

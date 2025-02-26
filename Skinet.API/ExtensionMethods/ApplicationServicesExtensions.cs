@@ -29,6 +29,8 @@ namespace Skinet.API.ExtensionMethods
             services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddScoped(typeof(IEmailSettings), typeof(EmailSettings));
             services.AddScoped(typeof(IAuthorizationServices), typeof(AuthorizationServices));
+            services.AddScoped(typeof(IResponseCacheService), typeof(ResponseCacheService));
+            services.AddScoped(typeof(IUserService), typeof(UserService));
 
 
 

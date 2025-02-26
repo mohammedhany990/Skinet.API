@@ -8,17 +8,20 @@ using Skinet.Core.Helper;
 using Skinet.Service.Abstracts;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
+using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Controllers
 {
     [ApiVersion("1.0")]
     public class AuthorizationController : ApiBaseController
     {
+        private readonly IAuthService _authService;
         private readonly IAuthorizationServices _authorizationService;
         private readonly UserManager<AppUser> _userManager;
 
-        public AuthorizationController(IAuthorizationServices authorizationService, UserManager<AppUser> userManager)
+        public AuthorizationController(IAuthService authService,IAuthorizationServices authorizationService, UserManager<AppUser> userManager)
         {
+            _authService = authService;
             _authorizationService = authorizationService;
             _userManager = userManager;
         }
@@ -40,12 +43,12 @@ namespace Skinet.API.Controllers
                 return Ok(new BaseResponse<string>(401, false, "User is not authenticated."));
             }
 
-            if (await _authorizationService.IsUserExisted(userId) == false)
+            if (await _authService.IsUserExistsByIdAsync(userId) == false)
             {
                 return Ok(new BaseResponse<string>(404, false, "user not found."));
             }
 
-            if (!await _authorizationService.IsRoleExist(roleName))
+            if (!await _authorizationService.IsRoleExistsAsync(roleName))
             {
                 return Ok(new BaseResponse<string>(404, false, "Role not found,check role existing before adding."));
             }
@@ -85,9 +88,9 @@ namespace Skinet.API.Controllers
         [ApiVersion("1.0")]
         [Authorize(Roles = "Admin")]
         [HttpGet("all-users")]
-        public async Task<ActionResult<BaseResponse<List<UserWithRoleResponse>>>> GetAllUsers()
+        public async Task<ActionResult<BaseResponse<List<UserWithRoleResponse>>>> GetAllUsersAsync()
         {
-            var result = await _authorizationService.GetAllUsers();
+            var result = await _authorizationService.GetAllUsersAsync();
 
             if (result is null || !result.Any())
             {
@@ -126,7 +129,7 @@ namespace Skinet.API.Controllers
                 return Ok(new BaseResponse<string>(400, false, "Role Name is required."));
             }
 
-            if (await _authorizationService.IsRoleExist(roleName))
+            if (await _authorizationService.IsRoleExistsAsync(roleName))
             {
                 return Ok(new BaseResponse<string>(200, true, "Role existed."));
 
@@ -176,7 +179,7 @@ namespace Skinet.API.Controllers
                 return Ok(new BaseResponse<string>(403, false, "Only admins can create roles."));
             }
 
-            if (await _authorizationService.IsRoleExist(roleName))
+            if (await _authorizationService.IsRoleExistsAsync(roleName))
             {
                 return Ok(new BaseResponse<string>(400, false, "Role already exists."));
             }
@@ -201,7 +204,7 @@ namespace Skinet.API.Controllers
                 return Ok(new BaseResponse<string>(403, false, "Only admins can create roles."));
             }
 
-            if (!await _authorizationService.IsRoleExist(roleName))
+            if (!await _authorizationService.IsRoleExistsAsync(roleName))
             {
                 return Ok(new BaseResponse<string>(400, false, "Role not found."));
             }

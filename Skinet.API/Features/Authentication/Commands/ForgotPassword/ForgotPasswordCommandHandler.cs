@@ -14,7 +14,7 @@ namespace Skinet.API.Features.Authentication.Commands.ForgotPassword
         }
         public async Task<BaseResponse<string>> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
         {
-            var existing = await _authService.CheckExisting(request.Email);
+            var existing = await _authService.CheckExistingUserByEmailAsync(request.Email);
             if (!existing)
             {
                 return new BaseResponse<string>
@@ -25,7 +25,7 @@ namespace Skinet.API.Features.Authentication.Commands.ForgotPassword
                 };
             }
 
-            var result = await _authService.SendOtp(request.Email);
+            var result = await _authService.SendOtpAsync(request.Email);
             if (result == "OTP has been sent to your email")
             {
                 return new BaseResponse<string>(200, true, result);

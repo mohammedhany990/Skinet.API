@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.Features.Orders.Models;
+using Skinet.API.DTOs.Identity;
 using Skinet.Core.Entities.Order;
 using Skinet.Core.Helper;
 using Skinet.Core.Interfaces;
@@ -43,7 +43,6 @@ namespace Skinet.API.Features.Orders.Commands.Create
                 userId,
                 buyerEmail,
                 request.DeliveryMethodId,
-                request.BasketId,
                 mappedAddress
                 );
 

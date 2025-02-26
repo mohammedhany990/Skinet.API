@@ -9,7 +9,7 @@ using Skinet.API.Errors;
 using Skinet.API.ExtensionMethods;
 using Skinet.API.Features.Authentication.Commands.Delete;
 using Skinet.API.Features.Authentication.Commands.ForgotPassword;
-using Skinet.API.Features.Authentication.Commands.SendOtp;
+using Skinet.API.Features.Authentication.Commands.SendOtpAsync;
 using Skinet.API.Features.Authentication.Commands.VerifyOtp;
 using Skinet.Core.DTOs.Identity;
 using Skinet.Core.Entities.Identity;
@@ -70,7 +70,7 @@ namespace Skinet.API.Controllers
         [Authorize]
         [MapToApiVersion("1.0")]
         [HttpGet("current-user")]
-        public async Task<ActionResult<UserResponse>> GetCurrentUser()
+        public async Task<ActionResult<UserResponse>> GetCurrentUserAsync()
         {
 
             var email = User.FindFirstValue(ClaimTypes.Email);
@@ -90,11 +90,11 @@ namespace Skinet.API.Controllers
         [HttpGet("get-user-address")]
         [MapToApiVersion("1.0")]
         [Authorize]
-        public async Task<ActionResult<AddressDto>> GetUserAddress()
+        public async Task<ActionResult<AddressModel>> GetUserAddressAsync()
         {
             var user = await _userManager.FindUserWithAddressAsync("User");
 
-            var ReturnesAddress = _mapper.Map<Address, AddressDto>(user.Address);
+            var ReturnesAddress = _mapper.Map<Address, AddressModel>(user.Address);
             if (ReturnesAddress is null)
             {
                 return NotFound(new ApiResponse(404, "No Address Found"));
@@ -108,9 +108,9 @@ namespace Skinet.API.Controllers
         [Authorize]
         [MapToApiVersion("1.0")]
         [HttpPut("update-address")]
-        public async Task<ActionResult<Address>> UpdateAddress(AddressDto dto)
+        public async Task<ActionResult<Address>> UpdateAddress(AddressModel dto)
         {
-            var address = _mapper.Map<AddressDto, Address>(dto);
+            var address = _mapper.Map<AddressModel, Address>(dto);
 
             var user = await _userManager.FindUserWithAddressAsync("User");
 
@@ -169,7 +169,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("reset-password")]
-        public async Task<ActionResult<BaseResponse<string>>> ResetPassword(ResetPasswordCommand command)
+        public async Task<ActionResult<BaseResponse<string>>> ResetPasswordAsync(ResetPasswordCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

@@ -19,7 +19,7 @@ namespace Skinet.API.Features.Authentication.Commands.Delete
         {
             var email = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Email);
 
-            if (string.IsNullOrEmpty(email) || await _authService.CheckExisting(email) == false)
+            if (string.IsNullOrEmpty(email) || await _authService.CheckExistingUserByEmailAsync(email) == false)
             {
                 return new BaseResponse<string>(404, false, "User not found.");
             }

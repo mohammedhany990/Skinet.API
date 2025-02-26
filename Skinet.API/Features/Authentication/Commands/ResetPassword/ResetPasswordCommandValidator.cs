@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Skinet.Core.DTOs.Identity;
 
-namespace Skinet.API.Features.Authentication.Commands.ResetPassword
+namespace Skinet.API.Features.Authentication.Commands.ResetPasswordAsync
 {
     public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordCommand>
     {

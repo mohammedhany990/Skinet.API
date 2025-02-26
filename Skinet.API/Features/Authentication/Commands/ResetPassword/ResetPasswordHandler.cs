@@ -3,7 +3,7 @@ using Skinet.Core.DTOs.Identity;
 using Skinet.Core.Helper;
 using Skinet.Core.Interfaces;
 
-namespace Skinet.API.Features.Authentication.Commands.ResetPassword
+namespace Skinet.API.Features.Authentication.Commands.ResetPasswordAsync
 {
 
     public class ResetPasswordHandler : IRequestHandler<ResetPasswordCommand, BaseResponse<string>>
@@ -16,7 +16,7 @@ namespace Skinet.API.Features.Authentication.Commands.ResetPassword
         }
         public async Task<BaseResponse<string>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
-            var result = await _authService.ResetPassword(request);
+            var result = await _authService.ResetPasswordAsync(request);
 
             if (result == "Invalid or expired OTP." || result == "Failed to reset password.")
             {

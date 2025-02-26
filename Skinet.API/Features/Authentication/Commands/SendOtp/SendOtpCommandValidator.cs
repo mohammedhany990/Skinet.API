@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Skinet.API.Features.Authentication.Commands.SendOtp
+namespace Skinet.API.Features.Authentication.Commands.SendOtpAsync
 {
     public class SendOtpCommandValidator : AbstractValidator<SendOtpCommand>
     {

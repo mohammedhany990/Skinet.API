@@ -30,6 +30,8 @@ namespace Skinet.API.Controllers
             var response = await _mediator.Send(new GetAllProductsQuery(parameters));
             return Ok(response);
         }
+
+        [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet("get-all")]
         public async Task<ActionResult<Pagination<List<ProductModel>>>> GetAllProductsWithPagination([FromQuery] ProductSpecificationParameters? parameters)

@@ -1,8 +1,9 @@
-﻿using Skinet.API.Features.Orders.Models;
+﻿using FluentValidation;
+using Skinet.API.DTOs.Identity;
+using Skinet.API.Features.Orders.Models;
 
-namespace Skinet.API.Features.Orders.Commands.Create
+namespace Skinet.API.Features.Users.Queries
 {
-    using FluentValidation;
 
     public class AddressModelValidator : AbstractValidator<AddressModel>
     {

@@ -14,9 +14,9 @@ namespace Skinet.API.Features.Authentication.Commands.Register
         }
         public async Task<BaseResponse<string>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            var existingEmail = await _authService.CheckExisting(request.Email);
+            var existingEmail = await _authService.CheckExistingUserByEmailAsync(request.Email);
 
-            if (existingEmail && await _authService.IsEmailConfirmed(request.Email) == false)
+            if (existingEmail && await _authService.IsEmailConfirmedAsync(request.Email) == false)
             {
                 return new BaseResponse<string>(400, false, "Email is already registered, but you need to confirm.");
             }

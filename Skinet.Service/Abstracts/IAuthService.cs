@@ -7,18 +7,19 @@ namespace Skinet.Core.Interfaces
     public interface IAuthService
     {
         Task<BaseResponse<string>> RegisterAsync(RegisterCommand request);
+
         Task<UserResponse> LoginAsync(string email, string password);
+
         Task<bool> DeleteAccountAsync(string email);
-        Task<bool> IsEmailConfirmed(string email);
-        Task<bool> CheckExisting(string email);
 
-        Task<UserResponse> GetCurrentUser(string userId);
-        Task<Address> GetUserAddress(string email);
+        Task<bool> IsEmailConfirmedAsync(string email);
+
+        Task<bool> IsUserExistsByIdAsync(string userId);
+
+        Task<bool> CheckExistingUserByEmailAsync(string email);
 
 
-
-        //Task<JwtSecurityToken> CreateTokenAsync(AppUser user, UserManager<AppUser> userManager);
-        //RefreshToken GenerateRefreshToken();
+        Task<UserResponse> GetCurrentUserAsync(string userId);
 
 
 
@@ -30,12 +31,10 @@ namespace Skinet.Core.Interfaces
         //Task<bool> RevokeTokenAsync(string token);
 
 
-        //Task<bool> ForgotPasswordAsync(string email);
-
-        Task<string> ResetPassword(ResetPasswordCommand resetPasswordDto);
+        Task<string> ResetPasswordAsync(ResetPasswordCommand resetPasswordDto);
         Task<string> ChangePasswordAsync(ChangePasswordCommand request);
 
         Task<BaseResponse<UserResponse>> VerifyOtpAsync(string email, string otp);
-        Task<string> SendOtp(string email);
+        Task<string> SendOtpAsync(string email);
     }
 }

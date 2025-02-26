@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Carts.Models;
+using Skinet.API.Features.Payments.Commands.ConfirmPayment;
 using Skinet.API.Features.Payments.Commands.Update;
 using Skinet.API.Features.Payments.Commands.Webhook;
 
@@ -18,13 +19,22 @@ namespace Skinet.API.Controllers
 
         }
 
-        [HttpPost("{basketId}")]
+        [HttpPost]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<CartModel>> CreateOrUpdatePayment(UpdatePaymentsCommand command)
+        public async Task<ActionResult<CartModel>> CreateOrUpdatePayment()
+        {
+            var response = await _mediator.Send(new UpdatePaymentsCommand());
+            return Ok(response);
+        }
+
+        [HttpPost("confirm-payment")]
+        [MapToApiVersion("1.0")]
+        public async Task<ActionResult<CartModel>> ConfirmPayment(ConfirmPaymentCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
         }
+
 
         [HttpPost("Webhook")]
         public async Task<IActionResult> Webhook()

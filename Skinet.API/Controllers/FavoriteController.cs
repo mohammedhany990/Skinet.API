@@ -6,6 +6,7 @@ using Skinet.API.Features.Favorites.Commands.ClearFavorites;
 using Skinet.API.Features.Favorites.Commands.Create;
 using Skinet.API.Features.Favorites.Commands.RemoveFromFavorites;
 using Skinet.API.Features.Favorites.Queries.GetUserFavoritesQuery;
+using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Controllers
@@ -21,6 +22,7 @@ namespace Skinet.API.Controllers
             _mediator = mediator;
         }
 
+        [CacheAttribute(300)]
         [HttpGet]
         [MapToApiVersion("1.0")]
         public async Task<IActionResult> GetFavorites()

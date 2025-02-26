@@ -6,9 +6,9 @@ namespace Skinet.API.Features.Payments.Commands.Update
     {
         public UpdatePaymentsCommandValidator()
         {
-            RuleFor(x => x.BasketId)
-                .NotEmpty()
-                .WithMessage("Basket Id is required");
+            //RuleFor(x => x.BasketId)
+            //    .NotEmpty()
+            //    .WithMessage("Basket Id is required");
         }
     }
 }

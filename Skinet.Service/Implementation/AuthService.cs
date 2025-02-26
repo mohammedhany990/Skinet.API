@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Skinet.API.DTOs.Identity;
@@ -43,6 +44,10 @@ namespace Skinet.Service.Implementation
 
         }
 
+        public async Task<bool> IsUserExistsByIdAsync(string userId)
+        {
+            return await _userManager.Users.AnyAsync(i => i.Id == userId);
+        } 
 
 
         private void SetRefreshTokenInCookie(string refreshToken, DateTime expire)
@@ -93,7 +98,7 @@ namespace Skinet.Service.Implementation
 
             await _userManager.UpdateAsync(user);
 
-            await SendOtp(user.Email);
+            await SendOtpAsync(user.Email);
 
             var returnedUser = new UserResponse
             {
@@ -140,7 +145,7 @@ namespace Skinet.Service.Implementation
                 };
             }
 
-            var isSent = await SendOtp(user.Email); // Send OTP for verification
+            var isSent = await SendOtpAsync(user.Email); // Send OTP for verification
 
             if (isSent != "OTP has been sent to your email")
             {
@@ -211,7 +216,7 @@ namespace Skinet.Service.Implementation
         }
 
 
-        public async Task<UserResponse> GetCurrentUser(string userId)
+        public async Task<UserResponse> GetCurrentUserAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             var jwtSecurityToken = await CreateTokenAsync(user);
@@ -224,19 +229,15 @@ namespace Skinet.Service.Implementation
             };
         }
 
-        public async Task<Address> GetUserAddress(string email)
-        {
-            var user = await _userManager.FindUserWithAddressAsync(email);
-            return user.Address;
-        }
+       
 
-        public async Task<bool> CheckExisting(string email)
+        public async Task<bool> CheckExistingUserByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             return user is not null;
         }
 
-        public async Task<bool> IsEmailConfirmed(string email)
+        public async Task<bool> IsEmailConfirmedAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
             return user.EmailConfirmed;
@@ -291,7 +292,7 @@ namespace Skinet.Service.Implementation
 
         #region Password Manager
 
-        public async Task<string> ResetPassword(ResetPasswordCommand request)
+        public async Task<string> ResetPasswordAsync(ResetPasswordCommand request)
         {
             var storedOtp = await _redis.StringGetAsync(request.Email);
             if (string.IsNullOrEmpty(storedOtp) || storedOtp != request.Otp)
@@ -361,7 +362,7 @@ namespace Skinet.Service.Implementation
         }
 
 
-        public async Task<string> SendOtp(string email)
+        public async Task<string> SendOtpAsync(string email)
         {
             try
             {

@@ -13,8 +13,8 @@ namespace Skinet.API.Features.Carts.Commands.Update
             RuleFor(x => x.DeliveryMethodId)
                 .NotNull().WithMessage("Delivery Method ID is required.");
 
-            RuleFor(x => x.ShippingPrice)
-                .GreaterThanOrEqualTo(0).WithMessage("Shipping price cannot be negative.");
+            //RuleFor(x => x.ShippingPrice)
+            //    .GreaterThanOrEqualTo(0).WithMessage("Shipping price cannot be negative.");
         }
     }
 

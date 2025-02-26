@@ -4,7 +4,7 @@ namespace Skinet.Service.Interfaces
 {
     public interface IPaymentService
     {
-        Task<Cart?> CreateOrUpdatePaymentIntentAsync(string cartId);
+        Task<Cart?> CreateOrUpdatePaymentIntentAsync(string userId);
         Task<Order?> ConfirmPaymentAndUpdateOrderAsync(string paymentIntentId);
         //Task<Order?> UpdateOrderStatusAsync(string paymentIntentId, OrderStatus status);
         // Task<bool> ConfirmPaymentAsync(string paymentIntentId);

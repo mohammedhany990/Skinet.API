@@ -19,7 +19,9 @@ namespace Skinet.API.Features.Carts.Queries.GetCartTotal
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
+            {
                 return new BaseResponse<decimal>(401, false, "Unauthorized. User ID is missing.");
+            }
 
             var total = await _cartService.GetCartTotalAsync(userId);
 

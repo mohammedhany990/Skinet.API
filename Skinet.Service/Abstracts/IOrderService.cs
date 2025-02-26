@@ -1,23 +1,25 @@
-﻿using Skinet.Core.Entities.Order;
+﻿using Skinet.Core.Entities;
+using Skinet.Core.Entities.Order;
+using static Skinet.Service.Implementation.OrderService;
 
 namespace Skinet.Core.Interfaces
 {
-
     public interface IOrderService
     {
+        Task<List<string>> GetAllOrderStatuses();
+        Task<List<DeliveryMethod>> GetDeliveryMethodAsync();
+
         Task<string> CreateOrderAsync(string userId, string buyerEmail, int deliveryMethodId,
-            string cartId, UserOrderAddress shippingAddress);
+            UserOrderAddress shippingAddress);
 
         Task<Order?> GetOrderByIdAsync(int orderId, string buyerEmail);
 
 
         Task<IEnumerable<Order>> GetOrdersForUserAsync(string buyerEmail);
 
-        //Task<IEnumerable<Order>> GetAllOrdersAsync();
+        Task<string> CancelOrderAsync(int orderId);
 
-        Task<bool> CancelOrderAsync(int orderId);
-
-        Task<bool> UpdateOrderStatusAsync(int orderId, string status);
+        Task<string> UpdateOrderStatusAsync(int orderId, string status);
     }
 
 }

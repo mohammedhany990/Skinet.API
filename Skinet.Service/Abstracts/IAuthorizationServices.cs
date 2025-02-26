@@ -4,9 +4,8 @@ namespace Skinet.Service.Abstracts
 {
     public interface IAuthorizationServices
     {
-        Task<List<UserWithRoleResponse>> GetAllUsers();
+        Task<List<UserWithRoleResponse>> GetAllUsersAsync();
 
-        Task<bool> IsUserExisted(string userId);
 
         Task<string> AssignRoleToUserAsync(string userId, string roleName);
 
@@ -14,7 +13,7 @@ namespace Skinet.Service.Abstracts
 
         Task<string> RemoveUserRoleAsync(string userId, string roleName);
 
-        Task<bool> IsRoleExist(string roleName);
+        Task<bool> IsRoleExistsAsync(string roleName);
 
         Task<List<RoleResponse>> GetRolesAsync();
 

@@ -1,31 +1,31 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.Errors;
+using Skinet.API.Features.Orders.Commands.CancelOrder;
 using Skinet.API.Features.Orders.Commands.Create;
+using Skinet.API.Features.Orders.Commands.UpdateOrderStatus;
 using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Orders.Queries.GetAllOrderStatuses;
 using Skinet.API.Features.Orders.Queries.GetByIdSpecificOrderForUser;
+using Skinet.API.Features.Orders.Queries.GetDeliveryMethod;
 using Skinet.API.Features.Orders.Queries.GetOrdersForUser;
-using Skinet.Core.Entities.Order;
+using Skinet.API.Helper;
 using Skinet.Core.Helper;
-using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Controllers
 {
-
+    [ApiVersion("1.0")]
     public class OrdersController : ApiBaseController
     {
-        
-        private readonly IOrderService _orderService;
         private readonly IMediator _mediator;
-
-        public OrdersController(IOrderService orderService, IMediator mediator)
+        public OrdersController( IMediator mediator)
         {
-            _orderService = orderService;
             _mediator = mediator;
         }
 
        
         [HttpPost]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<OrderModel>>> CreateOrder(CreateOrderCommand command)
         {
             var response = await _mediator.Send(command);
@@ -34,6 +34,8 @@ namespace Skinet.API.Controllers
 
 
         
+        //[CacheAttribute(300)]
+        [MapToApiVersion("1.0")]
         [HttpGet]
         public async Task<ActionResult<BaseResponse<List<OrderModel>>>> GetOrdersForUser()
         {
@@ -41,25 +43,45 @@ namespace Skinet.API.Controllers
             return Ok(response);
         }
 
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OrderModel>> GetSpecificOrderForUser(int id)
+        //[CacheAttribute(300)]
+        [MapToApiVersion("1.0")]
+        [HttpGet("order-id")]
+        public async Task<ActionResult<OrderModel>> GetSpecificOrderForUser(int orderId)
         {
-            var response = await _mediator.Send(new GetByIdSpecificOrderForUserQuery(id));
+            var response = await _mediator.Send(new GetByIdSpecificOrderForUserQuery(orderId));
             return Ok(response);
         }
 
-        [HttpGet("delivery-methods")]
-        public async Task<ActionResult<DeliveryMethod>> GetDeliveryMethods()
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("cancel")]
+        public async Task<ActionResult<OrderModel>> CancelOrderById(CancelOrderCommand command)
         {
-            var deliveries = await _orderService.GetDeliveryMethodsAsync();
-            if (deliveries is null)
-            {
-                return BadRequest(new ApiResponse(404, $"There is no Delivery Methods"));
-            }
-            return Ok(deliveries);
+            var response = await _mediator.Send(command);
+            return Ok(response);
         }
-        
+
+        [MapToApiVersion("1.0")]
+        [HttpPost("update-status")]
+        public async Task<ActionResult<OrderModel>> UpdateOrderStatus(UpdateOrderStatusCommand command)
+        {
+            var response = await _mediator.Send(command);
+            return Ok(response);
+        }
+
+        [MapToApiVersion("1.0")]
+        [HttpGet("delivery-methods")]
+        public async Task<ActionResult<BaseResponse<List<DeliveryMethodModel>>>> GetDeliveryMethods()
+        {
+            var response = await _mediator.Send(new GetDeliveryMethodsQuery());
+            return Ok(response);
+        }
+
+        [HttpGet("statuses")]
+        public async Task<ActionResult<BaseResponse<List<string>>>> GetAllOrderStatuses()
+        {
+            var response = await _mediator.Send(new GetAllOrderStatusesQuery());
+            return Ok(response);
+        }
     }
 }
-

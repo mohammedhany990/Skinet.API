@@ -10,6 +10,7 @@ using Skinet.API.Features.Carts.Commands.UpdateItemQuantity;
 using Skinet.API.Features.Carts.Models;
 using Skinet.API.Features.Carts.Queries.GetCart;
 using Skinet.API.Features.Carts.Queries.GetCartTotal;
+using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Controllers
@@ -25,8 +26,9 @@ namespace Skinet.API.Controllers
             _mediator = mediator;
         }
 
-
+        //[CacheAttribute(300)]
         [HttpGet]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<CartModel>>> GetCart()
         {
             var response = await _mediator.Send(new GetCartQuery());
@@ -34,6 +36,7 @@ namespace Skinet.API.Controllers
         }
 
         [HttpGet("get-total")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<decimal>>> GetCartTotal()
         {
             var response = await _mediator.Send(new GetCartTotalQuery());
@@ -42,14 +45,16 @@ namespace Skinet.API.Controllers
 
 
         [HttpPost("add")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> AddItem([FromBody] AddToCartCommand command)
         {
             var response = await _mediator.Send(command);
-            return StatusCode(response.StatusCode, response);
+            return Ok(response);
         }
 
 
         [HttpPut("update-quantity")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> UpdateItemQuantity([FromBody] UpdateItemQuantityCommand command)
         {
             var response = await _mediator.Send(command);
@@ -57,6 +62,7 @@ namespace Skinet.API.Controllers
         }
 
         [HttpPut("update-cart")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> UpdateCart([FromBody] UpdateCartCommand command)
         {
             var response = await _mediator.Send(command);
@@ -64,6 +70,7 @@ namespace Skinet.API.Controllers
         }
 
         [HttpDelete("remove/{productId}")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> RemoveItem(int productId)
         {
             var response = await _mediator.Send(new RemoveItemCommand(productId));
@@ -72,10 +79,11 @@ namespace Skinet.API.Controllers
 
 
         [HttpDelete("clear")]
+        [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<string>>> ClearCart()
         {
             var response = await _mediator.Send(new ClearCartCommand());
-            return StatusCode(response.StatusCode, response);
+            return Ok(response);
         }
     }
 }

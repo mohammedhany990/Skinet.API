@@ -97,6 +97,7 @@ namespace Skinet.Repository.Implementation
         public async Task<decimal> GetCartTotalAsync(string userId)
         {
             var cart = await GetCartAsync(userId);
+            if(cart is null) return 0;
             cart.CalculateTotal();
             return cart?.Total ?? 0;
         }

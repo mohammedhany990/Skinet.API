@@ -8,6 +8,7 @@ using Skinet.API.Features.ProductTypes.Commands.Update;
 using Skinet.API.Features.ProductTypes.Models;
 using Skinet.API.Features.ProductTypes.Queries.GetById;
 using Skinet.API.Features.ProductTypes.Queries.List;
+using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Controllers
@@ -23,7 +24,7 @@ namespace Skinet.API.Controllers
             _mediator = mediator;
         }
 
-
+        [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet("types")]
         public async Task<ActionResult<BaseResponse<List<ProductTypeModel>>>> Types()

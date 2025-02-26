@@ -17,7 +17,7 @@ namespace Skinet.Service.Implementation
             _roleManager = roleManager;
         }
 
-        public async Task<List<UserWithRoleResponse>> GetAllUsers()
+        public async Task<List<UserWithRoleResponse>> GetAllUsersAsync()
         {
             var users = await _userManager.Users.ToListAsync();
             var userList = new List<UserWithRoleResponse>();
@@ -29,14 +29,14 @@ namespace Skinet.Service.Implementation
                 {
                     UserId = user.Id,
                     UserName = user.DisplayName,
-                    Roles = roles.Select(roleName => new RoleResponse { RoleName = roleName }).ToList()
+                    UserEmail = user.Email,
+                    Roles = roles.ToList()
                 });
             }
 
             return userList;
         }
 
-        public async Task<bool> IsUserExisted(string userId) => await _userManager.Users.AnyAsync(i => i.Id == userId);
 
         public async Task<string> AssignRoleToUserAsync(string userId, string roleName)
         {
@@ -72,7 +72,7 @@ namespace Skinet.Service.Implementation
 
 
 
-        public async Task<bool> IsRoleExist(string roleName) => await _roleManager.RoleExistsAsync(roleName);
+        public async Task<bool> IsRoleExistsAsync(string roleName) => await _roleManager.RoleExistsAsync(roleName);
 
         public async Task<List<RoleResponse>> GetRolesAsync()
         {

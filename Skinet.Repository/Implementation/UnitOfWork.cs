@@ -1,4 +1,6 @@
-﻿using Skinet.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Skinet.Core.Entities;
 using Skinet.Core.Interfaces;
 using Skinet.Repository.Abstracts;
 using Skinet.Repository.Data;
@@ -15,6 +17,7 @@ namespace Skinet.Repository.Implementation
         private readonly IConnectionMultiplexer _redis;
         private Hashtable repositories = new Hashtable();
         private readonly ICartRepositoryFactory _cartRepositoryFactory;
+        private IDbContextTransaction _transaction; // Store the transaction
 
         public UnitOfWork(SkinetDbContext dbContext, IConnectionMultiplexer redis, ICartRepositoryFactory cartRepositoryFactory)
         {
@@ -38,16 +41,42 @@ namespace Skinet.Repository.Implementation
             return (IGenericRepository<TEntity>)repositories[key];
         }
 
+        public async Task BeginTransactionAsync()
+        {
+            _transaction = await _dbContext.Database.BeginTransactionAsync();
+        }
 
+        public async Task CommitTransactionAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.CommitAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
+
+        public async Task RollbackTransactionAsync()
+        {
+            if (_transaction != null)
+            {
+                await _transaction.RollbackAsync();
+                await _transaction.DisposeAsync();
+                _transaction = null;
+            }
+        }
 
         public async Task<int> CompleteAsync()
         {
             return await _dbContext.SaveChangesAsync();
         }
 
-
         public async ValueTask DisposeAsync()
         {
+            if (_transaction != null)
+            {
+                await _transaction.DisposeAsync();
+            }
             await _dbContext.DisposeAsync();
         }
     }

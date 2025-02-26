@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Skinet.API.Features.Users.Queries;
 
 namespace Skinet.API.Features.Orders.Commands.Create
 {
@@ -6,9 +7,9 @@ namespace Skinet.API.Features.Orders.Commands.Create
     {
         public CreateOrderCommandValidator()
         {
-            RuleFor(x => x.BasketId)
-                .NotEmpty()
-                .WithMessage("Basket ID is required");
+            //RuleFor(x => x.BasketId)
+            //    .NotEmpty()
+            //    .WithMessage("Basket ID is required");
 
             RuleFor(x => x.DeliveryMethodId)
                 .GreaterThan(0)

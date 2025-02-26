@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Skinet.Core.Helper;
 
-namespace Skinet.API.Features.Authentication.Commands.SendOtp
+namespace Skinet.API.Features.Authentication.Commands.SendOtpAsync
 {
     public class SendOtpCommand : IRequest<BaseResponse<string>>
     {
