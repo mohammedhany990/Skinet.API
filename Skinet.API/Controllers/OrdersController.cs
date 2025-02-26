@@ -34,7 +34,7 @@ namespace Skinet.API.Controllers
 
 
         
-        //[CacheAttribute(300)]
+        [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet]
         public async Task<ActionResult<BaseResponse<List<OrderModel>>>> GetOrdersForUser()
@@ -43,7 +43,7 @@ namespace Skinet.API.Controllers
             return Ok(response);
         }
 
-        //[CacheAttribute(300)]
+        [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet("order-id")]
         public async Task<ActionResult<OrderModel>> GetSpecificOrderForUser(int orderId)

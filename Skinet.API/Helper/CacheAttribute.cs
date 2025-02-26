@@ -7,54 +7,51 @@ namespace Skinet.API.Helper
 {
     public class CacheAttribute : Attribute, IAsyncActionFilter
     {
-        private readonly int _timeInSeconds;
+        private readonly int _liveTimeInSec;
 
-        public CacheAttribute(int timeInSeconds)
+        public CacheAttribute(int liveTimeInSec)
         {
-            _timeInSeconds = timeInSeconds;
+            _liveTimeInSec = liveTimeInSec;
         }
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var responseCacheService = context.HttpContext
-                .RequestServices
-                .GetRequiredService<IResponseCacheService>();
+            // DI Explicitly 
+            var responseCacheService = context.HttpContext.RequestServices.GetRequiredService<IResponseCacheService>();
 
-            var cacheKey = GenerateCacheKey(context.HttpContext.Request);
+            var cacheKey = GenerateCacheKeyFromRequest(context.HttpContext.Request);
 
-            var response = await responseCacheService.GetCachedResponseAsync(cacheKey);
+            var response = await responseCacheService.GetCacheResponseAsync(cacheKey);
+
             if (!string.IsNullOrEmpty(response))
             {
-                var contentResult = new ContentResult()
+                var result = new ContentResult()
                 {
                     Content = response,
-                    StatusCode = 200,
-                    ContentType = "application/json"
+                    ContentType = "application/json",
+                    StatusCode = 200
                 };
-                context.Result = contentResult;
+                context.Result = result;
                 return;
             }
 
             var actionExecutedContext = await next.Invoke();
-            if (actionExecutedContext.Result is ObjectResult result && result.Value is not null)
+            if (actionExecutedContext.Result is ObjectResult okObjectResult && okObjectResult.Value is not null)
             {
-                await responseCacheService
-                    .CacheResponseAsync(cacheKey, result, TimeSpan.FromSeconds(_timeInSeconds));
+                await responseCacheService.CacheResponseAsync(cacheKey, okObjectResult.Value, TimeSpan.FromSeconds(_liveTimeInSec));
             }
 
         }
 
-        private string GenerateCacheKey(HttpRequest httpRequest)
+        private string GenerateCacheKeyFromRequest(HttpRequest httpContextRequest)
         {
-            var result = new StringBuilder();
-
-            result.Append(httpRequest.Path);
-
-            foreach (var (key, value) in httpRequest.Query.OrderBy(o=>o.Key))
+            var keyBuilder = new StringBuilder();
+            keyBuilder.Append(httpContextRequest.Path);
+            foreach (var (key, value) in httpContextRequest.Query.OrderBy(k => k.Key))
             {
-                result.Append($"|{key}-{value}");
+                keyBuilder.Append($"|{key}-{value}");
             }
-
-            return result.ToString();
+            return keyBuilder.ToString();
         }
     }
+
 }

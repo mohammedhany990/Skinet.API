@@ -23,12 +23,16 @@ namespace Skinet.API.Features.Carts.Queries.GetCart
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
+            {
                 return new BaseResponse<CartModel>(401, false, "Unauthorized. User ID is missing.");
+            }
 
             var cart = await _cartService.GetCartAsync(userId);
 
             if (cart is null)
+            {
                 return new BaseResponse<CartModel>(404, false, "Cart not found.");
+            }
 
             var mappedCart = _mapper.Map<CartModel>(cart);
 

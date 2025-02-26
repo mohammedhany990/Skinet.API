@@ -26,7 +26,6 @@ namespace Skinet.API.Controllers
             _mediator = mediator;
         }
 
-        //[CacheAttribute(300)]
         [HttpGet]
         [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<CartModel>>> GetCart()
@@ -34,6 +33,7 @@ namespace Skinet.API.Controllers
             var response = await _mediator.Send(new GetCartQuery());
             return Ok(response);
         }
+       
 
         [HttpGet("get-total")]
         [MapToApiVersion("1.0")]

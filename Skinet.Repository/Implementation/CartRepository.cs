@@ -4,6 +4,8 @@ using Skinet.Core.Entities.Cart;
 using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
 using StackExchange.Redis;
+using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Skinet.Repository.Implementation
 {
@@ -22,7 +24,7 @@ namespace Skinet.Repository.Implementation
         public async Task<Cart> GetCartAsync(string userId)
         {
             var cartJson = await _database.StringGetAsync($"cart:{userId}");
-            return cartJson.IsNullOrEmpty ? null : JsonConvert.DeserializeObject<Cart>(cartJson);
+            return cartJson.IsNullOrEmpty ? null : JsonSerializer.Deserialize<Cart>(cartJson);
         }
 
 
@@ -43,7 +45,8 @@ namespace Skinet.Repository.Implementation
             }
             else
             {
-                cart.Items.Add(new CartItem(productId, product.Name, product.Price, quantity, product.ProductBrand.Name, product.ProductType.Name, product.PictureUrl));
+                cart.Items.Add(new CartItem(productId, product.Name, product.Price, quantity, product.ProductBrand.Name,
+                    product.ProductType.Name, product.PictureUrl));
             }
 
             cart.CalculateTotal();
@@ -97,7 +100,7 @@ namespace Skinet.Repository.Implementation
         public async Task<decimal> GetCartTotalAsync(string userId)
         {
             var cart = await GetCartAsync(userId);
-            if(cart is null) return 0;
+            if (cart is null) return 0;
             cart.CalculateTotal();
             return cart?.Total ?? 0;
         }
@@ -111,7 +114,8 @@ namespace Skinet.Repository.Implementation
 
         private async Task SaveCartAsync(string userId, Cart cart)
         {
-            await _database.StringSetAsync($"cart:{userId}", JsonConvert.SerializeObject(cart), CartExpiration);
+            var cartJson = JsonSerializer.Serialize(cart);
+            await _database.StringSetAsync($"cart:{userId}", cartJson, CartExpiration);
         }
     }
 }

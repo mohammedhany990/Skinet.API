@@ -36,6 +36,7 @@ namespace Skinet.API.Controllers
         }
 
 
+        [MapToApiVersion("1.0")]
         [HttpPost("Webhook")]
         public async Task<IActionResult> Webhook()
         {
