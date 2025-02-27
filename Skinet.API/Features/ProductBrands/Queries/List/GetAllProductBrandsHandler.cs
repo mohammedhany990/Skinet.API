@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.Features.ProductBrands.Models;
+using Skinet.API.Features.ProductBrands.Responses;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 namespace Skinet.API.Features.ProductBrands.Queries.List
 {
-    public class GetAllProductBrandsHandler : IRequestHandler<GetAllProductBrandsQuery, BaseResponse<List<ProductBrandModel>>>
+    public class GetAllProductBrandsHandler : IRequestHandler<GetAllProductBrandsQuery, BaseResponse<List<ProductBrandResponse>>>
     {
         private readonly IProductBrandService _productBrandService;
         private readonly IMapper _mapper;
@@ -15,22 +15,22 @@ namespace Skinet.API.Features.ProductBrands.Queries.List
             _productBrandService = productBrandService;
             _mapper = mapper;
         }
-        public async Task<BaseResponse<List<ProductBrandModel>>> Handle(GetAllProductBrandsQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<List<ProductBrandResponse>>> Handle(GetAllProductBrandsQuery request, CancellationToken cancellationToken)
         {
             var brands = await _productBrandService.GetProductBrandsAsync();
             if (brands is null || !brands.Any())
             {
-                return new BaseResponse<List<ProductBrandModel>>
+                return new BaseResponse<List<ProductBrandResponse>>
                 {
                     Success = false,
                     Message = "Product Brands not found",
                     StatusCode = StatusCodes.Status404NotFound,
-                    Data = new List<ProductBrandModel>()
+                    Data = new List<ProductBrandResponse>()
                 };
             }
 
-            var mappedBrands = _mapper.Map<List<ProductBrandModel>>(brands);
-            return new BaseResponse<List<ProductBrandModel>>
+            var mappedBrands = _mapper.Map<List<ProductBrandResponse>>(brands);
+            return new BaseResponse<List<ProductBrandResponse>>
             {
                 Success = true,
                 Message = "Product Brands retrieved successfully",

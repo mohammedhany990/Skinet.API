@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.Features.Products.Models;
+using Skinet.API.Features.Products.Responses;
 
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.API.Features.Products.Queries.GetById
 {
-    public class GetByIdProductHandler : IRequestHandler<GetByIdProductQuery, BaseResponse<ProductModel>>
+    public class GetByIdProductHandler : IRequestHandler<GetByIdProductQuery, BaseResponse<ProductResponse>>
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
@@ -17,11 +17,11 @@ namespace Skinet.API.Features.Products.Queries.GetById
             _productService = productService;
             _mapper = mapper;
         }
-        public async Task<BaseResponse<ProductModel>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<ProductResponse>> Handle(GetByIdProductQuery request, CancellationToken cancellationToken)
         {
             if (request.ProductId <= 0)
             {
-                return new BaseResponse<ProductModel>
+                return new BaseResponse<ProductResponse>
                 {
                     Success = false,
                     Message = "Invalid Product ID",
@@ -31,16 +31,16 @@ namespace Skinet.API.Features.Products.Queries.GetById
             var product = await _productService.GetProductByIdAsync(request.ProductId);
             if (product is null)
             {
-                return new BaseResponse<ProductModel>
+                return new BaseResponse<ProductResponse>
                 {
                     Message = "Product not found",
                     StatusCode = StatusCodes.Status404NotFound,
                     Success = false
                 };
             }
-            return new BaseResponse<ProductModel>
+            return new BaseResponse<ProductResponse>
             {
-                Data = _mapper.Map<ProductModel>(product),
+                Data = _mapper.Map<ProductResponse>(product),
                 Message = "Product found successfully",
                 StatusCode = StatusCodes.Status200OK,
                 Success = true,

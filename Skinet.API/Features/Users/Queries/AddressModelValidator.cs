@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Skinet.API.DTOs.Identity;
-using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Orders.Responses;
 
 namespace Skinet.API.Features.Users.Queries
 {

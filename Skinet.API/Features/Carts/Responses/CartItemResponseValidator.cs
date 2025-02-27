@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
+using Skinet.API.Features.Carts.Responses;
 
-namespace Skinet.API.Features.Carts.Models
+namespace Skinet.API.Features.Carts.Responses
 {
 
-    public class CartItemModelValidator : AbstractValidator<CartItemModel>
+    public class CartItemResponseValidator : AbstractValidator<CartItemResponse>
     {
-        public CartItemModelValidator()
+        public CartItemResponseValidator()
         {
             RuleFor(x => x.ProductName)
                 .NotEmpty().WithMessage("Product name is required.");

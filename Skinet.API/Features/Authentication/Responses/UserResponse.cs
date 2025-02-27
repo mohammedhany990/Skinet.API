@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Skinet.Core.Features.Authentication.Models
+namespace Skinet.Core.Features.Authentication.Responses
 {
     public class UserResponse
     {

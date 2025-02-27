@@ -1,16 +1,18 @@
-﻿namespace Skinet.API.Features.Orders.Models
+﻿using Skinet.API.Features.Orders.Responses;
+
+namespace Skinet.API.Features.Orders.Responses
 {
-    public class OrderModel
+    public class OrderResponse
     {
         public int Id { get; set; }
         public string BuyerEmail { get; set; } = null!;
         public DateTimeOffset OrderDate { get; set; }
         public string Status { get; set; }
-        public UserOrderAddressModel ShippingAddress { get; set; }
+        public UserOrderAddressResponse ShippingAddress { get; set; }
         public string DeliveryMethod { get; set; }
         public decimal Price { get; set; }
 
-        public ICollection<OrderItemModel> Items { get; set; } = new HashSet<OrderItemModel>();
+        public ICollection<OrderItemResponse> Items { get; set; } = new HashSet<OrderItemResponse>();
         public decimal SubTotal { get; set; }
         public decimal Total { get; set; }
         public string PaymentIntentId { get; set; }

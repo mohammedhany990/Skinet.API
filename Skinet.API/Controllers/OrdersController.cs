@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Orders.Commands.CancelOrder;
 using Skinet.API.Features.Orders.Commands.Create;
 using Skinet.API.Features.Orders.Commands.UpdateOrderStatus;
-using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Orders.Responses;
 using Skinet.API.Features.Orders.Queries.GetAllOrderStatuses;
 using Skinet.API.Features.Orders.Queries.GetByIdSpecificOrderForUser;
 using Skinet.API.Features.Orders.Queries.GetDeliveryMethod;
@@ -26,7 +26,7 @@ namespace Skinet.API.Controllers
        
         [HttpPost]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<BaseResponse<OrderModel>>> CreateOrder(CreateOrderCommand command)
+        public async Task<ActionResult<BaseResponse<OrderResponse>>> CreateOrder(CreateOrderCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
@@ -37,7 +37,7 @@ namespace Skinet.API.Controllers
         [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<List<OrderModel>>>> GetOrdersForUser()
+        public async Task<ActionResult<BaseResponse<List<OrderResponse>>>> GetOrdersForUser()
         {
             var response = await _mediator.Send(new GetOrdersForUserQuery());
             return Ok(response);
@@ -46,7 +46,7 @@ namespace Skinet.API.Controllers
         [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet("order-id")]
-        public async Task<ActionResult<OrderModel>> GetSpecificOrderForUser(int orderId)
+        public async Task<ActionResult<OrderResponse>> GetSpecificOrderForUser(int orderId)
         {
             var response = await _mediator.Send(new GetByIdSpecificOrderForUserQuery(orderId));
             return Ok(response);
@@ -55,7 +55,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("cancel")]
-        public async Task<ActionResult<OrderModel>> CancelOrderById(CancelOrderCommand command)
+        public async Task<ActionResult<OrderResponse>> CancelOrderById(CancelOrderCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
@@ -63,7 +63,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpPost("update-status")]
-        public async Task<ActionResult<OrderModel>> UpdateOrderStatus(UpdateOrderStatusCommand command)
+        public async Task<ActionResult<OrderResponse>> UpdateOrderStatus(UpdateOrderStatusCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);
@@ -71,7 +71,7 @@ namespace Skinet.API.Controllers
 
         [MapToApiVersion("1.0")]
         [HttpGet("delivery-methods")]
-        public async Task<ActionResult<BaseResponse<List<DeliveryMethodModel>>>> GetDeliveryMethods()
+        public async Task<ActionResult<BaseResponse<List<DeliveryMethodResponse>>>> GetDeliveryMethods()
         {
             var response = await _mediator.Send(new GetDeliveryMethodsQuery());
             return Ok(response);

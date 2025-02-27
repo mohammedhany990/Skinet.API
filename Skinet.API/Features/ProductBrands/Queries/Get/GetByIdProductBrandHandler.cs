@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.Features.ProductBrands.Models;
+using Skinet.API.Features.ProductBrands.Responses;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 namespace Skinet.API.Features.ProductBrands.Queries.Get
 {
-    public class GetByIdProductBrandHandler : IRequestHandler<GetByIdProductBrandQuery, BaseResponse<ProductBrandModel>>
+    public class GetByIdProductBrandHandler : IRequestHandler<GetByIdProductBrandQuery, BaseResponse<ProductBrandResponse>>
     {
         private readonly IProductBrandService _productBrandService;
         private readonly IMapper _mapper;
@@ -14,11 +14,11 @@ namespace Skinet.API.Features.ProductBrands.Queries.Get
             _productBrandService = productBrandService;
             _mapper = mapper;
         }
-        public async Task<BaseResponse<ProductBrandModel>> Handle(GetByIdProductBrandQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<ProductBrandResponse>> Handle(GetByIdProductBrandQuery request, CancellationToken cancellationToken)
         {
             if (request.ProductBrandId <= 0)
             {
-                return new BaseResponse<ProductBrandModel>
+                return new BaseResponse<ProductBrandResponse>
                 {
                     Success = false,
                     Message = "Invalid Product Brand ID",
@@ -29,7 +29,7 @@ namespace Skinet.API.Features.ProductBrands.Queries.Get
             var brand = await _productBrandService.GetProductBrandByIdAsync(request.ProductBrandId);
             if (brand is null)
             {
-                return new BaseResponse<ProductBrandModel>
+                return new BaseResponse<ProductBrandResponse>
                 {
                     Success = false,
                     Message = "Product Brand not found",
@@ -37,8 +37,8 @@ namespace Skinet.API.Features.ProductBrands.Queries.Get
                 };
             }
 
-            var mappedBrand = _mapper.Map<ProductBrandModel>(brand);
-            return new BaseResponse<ProductBrandModel>
+            var mappedBrand = _mapper.Map<ProductBrandResponse>(brand);
+            return new BaseResponse<ProductBrandResponse>
             {
                 Success = true,
                 Message = "Product Brand retrieved successfully",

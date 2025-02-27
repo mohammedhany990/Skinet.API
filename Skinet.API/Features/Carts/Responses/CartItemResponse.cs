@@ -1,6 +1,6 @@
-﻿namespace Skinet.API.Features.Carts.Models
+﻿namespace Skinet.API.Features.Carts.Responses
 {
-    public class CartItemModel
+    public class CartItemResponse
     {
         public string Id { get; set; }
 

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Products.Commands.Create;
 using Skinet.API.Features.Products.Commands.Delete;
 using Skinet.API.Features.Products.Commands.Update;
-using Skinet.API.Features.Products.Models;
+using Skinet.API.Features.Products.Responses;
 using Skinet.API.Features.Products.Queries.GetAll;
 using Skinet.API.Features.Products.Queries.GetAllWithPaginationProducts;
 using Skinet.API.Features.Products.Queries.GetById;
@@ -25,7 +25,7 @@ namespace Skinet.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<List<ProductModel>>>> GetAllProducts([FromQuery] ProductSpecificationParameters? parameters)
+        public async Task<ActionResult<BaseResponse<List<ProductResponse>>>> GetAllProducts([FromQuery] ProductSpecificationParameters? parameters)
         {
             var response = await _mediator.Send(new GetAllProductsQuery(parameters));
             return Ok(response);
@@ -34,7 +34,7 @@ namespace Skinet.API.Controllers
         [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet("get-all")]
-        public async Task<ActionResult<Pagination<List<ProductModel>>>> GetAllProductsWithPagination([FromQuery] ProductSpecificationParameters? parameters)
+        public async Task<ActionResult<Pagination<List<ProductResponse>>>> GetAllProductsWithPagination([FromQuery] ProductSpecificationParameters? parameters)
         {
             var response = await _mediator.Send(new GetAllWithPaginationProductsQuery(parameters));
             return Ok(response);
@@ -42,7 +42,7 @@ namespace Skinet.API.Controllers
 
         [HttpGet("{id}")]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<BaseResponse<ProductModel>>> GetProduct(int id)
+        public async Task<ActionResult<BaseResponse<ProductResponse>>> GetProduct(int id)
         {
             var response = await _mediator.Send(new GetByIdProductQuery(id));
             return Ok(response);

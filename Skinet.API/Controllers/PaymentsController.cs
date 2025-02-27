@@ -1,7 +1,7 @@
 ﻿using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Skinet.API.Features.Carts.Models;
+using Skinet.API.Features.Carts.Responses;
 using Skinet.API.Features.Payments.Commands.ConfirmPayment;
 using Skinet.API.Features.Payments.Commands.Update;
 using Skinet.API.Features.Payments.Commands.Webhook;
@@ -21,7 +21,7 @@ namespace Skinet.API.Controllers
 
         [HttpPost]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<CartModel>> CreateOrUpdatePayment()
+        public async Task<ActionResult<CartResponse>> CreateOrUpdatePayment()
         {
             var response = await _mediator.Send(new UpdatePaymentsCommand());
             return Ok(response);
@@ -29,7 +29,7 @@ namespace Skinet.API.Controllers
 
         [HttpPost("confirm-payment")]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<CartModel>> ConfirmPayment(ConfirmPaymentCommand command)
+        public async Task<ActionResult<CartResponse>> ConfirmPayment(ConfirmPaymentCommand command)
         {
             var response = await _mediator.Send(command);
             return Ok(response);

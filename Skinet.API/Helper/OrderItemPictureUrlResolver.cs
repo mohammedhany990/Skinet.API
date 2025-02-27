@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Skinet.API.Features.Orders.Models;
+using Skinet.API.Features.Orders.Responses;
 using Skinet.Core.Entities.Order;
 
 namespace Skinet.API.Helper
 {
-    public class OrderItemPictureUrlResolver : IValueResolver<OrderItem, OrderItemModel, string>
+    public class OrderItemPictureUrlResolver : IValueResolver<OrderItem, OrderItemResponse, string>
     {
         private readonly IConfiguration _configuration;
 
@@ -14,7 +14,7 @@ namespace Skinet.API.Helper
         }
 
 
-        public string Resolve(OrderItem source, OrderItemModel destination, string destMember, ResolutionContext context)
+        public string Resolve(OrderItem source, OrderItemResponse destination, string destMember, ResolutionContext context)
         {
             if (!string.IsNullOrEmpty(source.ItemOrdered.PictureUrl))
             {

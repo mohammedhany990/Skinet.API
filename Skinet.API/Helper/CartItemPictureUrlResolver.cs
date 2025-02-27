@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Skinet.API.Features.Carts.Models;
+using Skinet.API.Features.Carts.Responses;
 using Skinet.Core.Entities.Cart;
 
 namespace Skinet.API.Helper
 {
-    public class CartItemPictureUrlResolver : IValueResolver<CartItem, CartItemModel, string>
+    public class CartItemPictureUrlResolver : IValueResolver<CartItem, CartItemResponse, string>
     {
         private readonly IConfiguration _configuration;
 
@@ -13,7 +13,7 @@ namespace Skinet.API.Helper
             _configuration = configuration;
         }
 
-        public string Resolve(CartItem source, CartItemModel destination, string destMember, ResolutionContext context)
+        public string Resolve(CartItem source, CartItemResponse destination, string destMember, ResolutionContext context)
         {
             if (!string.IsNullOrEmpty(source.PictureUrl))
             {

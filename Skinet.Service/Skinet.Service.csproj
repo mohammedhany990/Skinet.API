@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Skinet.Core\Skinet.Core.csproj" />
-    <ProjectReference Include="..\Skinet.Repository\Skinet.Repository.csproj" />
+    <ProjectReference Include="..\Skinet.Repository\Skinet.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

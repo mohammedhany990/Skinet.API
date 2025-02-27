@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
-using Skinet.API.Features.Carts.Models;
+using Skinet.API.Features.Carts.Responses;
 using Skinet.Core.Helper;
 using Skinet.Service.Interfaces;
 using System.Security.Claims;
 
 namespace Skinet.API.Features.Payments.Commands.Update
 {
-    public class UpdatePaymentsCommandHandler : IRequestHandler<UpdatePaymentsCommand, BaseResponse<CartModel>>
+    public class UpdatePaymentsCommandHandler : IRequestHandler<UpdatePaymentsCommand, BaseResponse<CartResponse>>
     {
         private readonly IPaymentService _paymentService;
         private readonly IMapper _mapper;
@@ -19,12 +19,12 @@ namespace Skinet.API.Features.Payments.Commands.Update
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
         }
-        public async Task<BaseResponse<CartModel>> Handle(UpdatePaymentsCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<CartResponse>> Handle(UpdatePaymentsCommand request, CancellationToken cancellationToken)
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
             {
-                return new BaseResponse<CartModel>
+                return new BaseResponse<CartResponse>
                 {
                     Success = false,
                     Message = "Unauthorized. User ID is missing.",
@@ -35,10 +35,10 @@ namespace Skinet.API.Features.Payments.Commands.Update
             var cart = await _paymentService.CreateOrUpdatePaymentIntentAsync(userId);
             if (cart is null)
             {
-                return new BaseResponse<CartModel>(404, false, "There's a problem with your Basket.");
+                return new BaseResponse<CartResponse>(404, false, "There's a problem with your Basket.");
             }
-            var mappedBasket = _mapper.Map<CartModel>(cart);
-            return new BaseResponse<CartModel>(200, true, 1, mappedBasket, "Payment updated successfully");
+            var mappedBasket = _mapper.Map<CartResponse>(cart);
+            return new BaseResponse<CartResponse>(200, true, 1, mappedBasket, "Payment updated successfully");
 
         }
     }

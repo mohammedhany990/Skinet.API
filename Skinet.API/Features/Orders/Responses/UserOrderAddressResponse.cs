@@ -1,8 +1,8 @@
-﻿namespace Skinet.API.Features.Orders.Models
+﻿namespace Skinet.API.Features.Orders.Responses
 {
-    public class UserOrderAddressModel
+    public class UserOrderAddressResponse
     {
-        public UserOrderAddressModel(string firstName, string lastName, string street, string city, string state, string zipCode)
+        public UserOrderAddressResponse(string firstName, string lastName, string street, string city, string state, string zipCode)
         {
             FirstName = firstName;
             LastName = lastName;

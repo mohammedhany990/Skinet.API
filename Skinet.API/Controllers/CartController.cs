@@ -7,9 +7,9 @@ using Skinet.API.Features.Carts.Commands.Delete;
 using Skinet.API.Features.Carts.Commands.RemoveItem;
 using Skinet.API.Features.Carts.Commands.Update;
 using Skinet.API.Features.Carts.Commands.UpdateItemQuantity;
-using Skinet.API.Features.Carts.Models;
 using Skinet.API.Features.Carts.Queries.GetCart;
 using Skinet.API.Features.Carts.Queries.GetCartTotal;
+using Skinet.API.Features.Carts.Responses;
 using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
@@ -28,7 +28,7 @@ namespace Skinet.API.Controllers
 
         [HttpGet]
         [MapToApiVersion("1.0")]
-        public async Task<ActionResult<BaseResponse<CartModel>>> GetCart()
+        public async Task<ActionResult<BaseResponse<CartResponse>>> GetCart()
         {
             var response = await _mediator.Send(new GetCartQuery());
             return Ok(response);

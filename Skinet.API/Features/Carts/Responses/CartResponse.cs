@@ -1,8 +1,8 @@
-﻿namespace Skinet.API.Features.Carts.Models
+﻿namespace Skinet.API.Features.Carts.Responses
 {
-    public class CartModel
+    public class CartResponse
     {
-        public CartModel(string id)
+        public CartResponse(string id)
         {
             Id = id;
         }
@@ -10,7 +10,7 @@
         public decimal Total { get; set; }
 
 
-        public List<CartItemModel> Items { get; set; } = new List<CartItemModel>();
+        public List<CartItemResponse> Items { get; set; } = new List<CartItemResponse>();
         public string? ClientSecret { get; set; }
         public string? PaymentIntentId { get; set; }
         public int? DeliveryMethodId { get; set; }

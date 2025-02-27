@@ -1,6 +1,6 @@
-﻿namespace Skinet.API.Features.Products.Models
+﻿namespace Skinet.API.Features.Products.Responses
 {
-    public class ProductModel
+    public class ProductResponse
     {
         public int Id { get; set; }
         public string Name { get; set; }

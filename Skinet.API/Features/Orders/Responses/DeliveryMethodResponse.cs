@@ -1,6 +1,6 @@
-﻿namespace Skinet.API.Features.Orders.Models
+﻿namespace Skinet.API.Features.Orders.Responses
 {
-    public class DeliveryMethodModel
+    public class DeliveryMethodResponse
     {
         public int Id { get; set; }
         public string ShortName { get; set; }

@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Skinet.API.Features.Products.Models;
+using Skinet.API.Features.Products.Responses;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Features.Products.Queries.GetById
 {
-    public class GetByIdProductQuery : IRequest<BaseResponse<ProductModel>>
+    public class GetByIdProductQuery : IRequest<BaseResponse<ProductResponse>>
     {
         public GetByIdProductQuery(int productId)
         {
