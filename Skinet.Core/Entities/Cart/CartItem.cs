@@ -4,7 +4,7 @@
     {
         public CartItem()
         {
-            
+
         }
         public string Id { get; set; }
 

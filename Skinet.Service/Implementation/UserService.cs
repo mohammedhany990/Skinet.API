@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Skinet.API.DTOs.Identity;
 using Skinet.API.ExtensionMethods;
 using Skinet.Core.Entities.Identity;
 using Skinet.Service.Abstracts;
@@ -20,10 +19,10 @@ namespace Skinet.Service.Implementation
             return user.Address;
         }
 
-       
+
         public async Task<string> UpdateAddressAsync(Address address, string email)
         {
-           
+
             var user = await _userManager.FindUserWithAddressAsync(email);
 
             address.Id = user.Address?.Id ?? 0;

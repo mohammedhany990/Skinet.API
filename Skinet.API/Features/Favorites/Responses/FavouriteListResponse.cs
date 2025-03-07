@@ -1,6 +1,4 @@
-﻿using Skinet.API.Features.Favorites.Responses;
-
-namespace Skinet.API.Features.Favorites.Responses
+﻿namespace Skinet.API.Features.Favorites.Responses
 {
     public class FavouriteListResponse
     {

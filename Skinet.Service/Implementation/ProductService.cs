@@ -1,6 +1,6 @@
 ﻿using Skinet.Core.Entities;
-using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
+using Skinet.Repository.Interfaces;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.Service.Implementation

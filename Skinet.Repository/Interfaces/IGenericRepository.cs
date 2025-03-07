@@ -2,7 +2,7 @@
 using Skinet.Core.Specifications;
 using System.Linq.Expressions;
 
-namespace Skinet.Core.Interfaces
+namespace Skinet.Repository.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

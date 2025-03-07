@@ -2,7 +2,7 @@
 using MailKit.Security;
 using Microsoft.Extensions.Options;
 using MimeKit;
-using Skinet.Core.Interfaces;
+using Skinet.Repository.Interfaces;
 
 namespace Skinet.Repository.Email
 {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Skinet.Core.Entities.Cart;
 using Skinet.Core.Entities.Order;
-using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
+using Skinet.Repository.Interfaces;
 using Skinet.Service.Interfaces;
 using Stripe;
 using Product = Skinet.Core.Entities.Product;
@@ -53,9 +53,9 @@ namespace Skinet.Service.Implementation
             }
 
             var subTotal = cart.Items.Sum(item => item.Price * item.Quantity);
-            
+
             var totalAmount = (long)((subTotal + shippingPrice) * 100); // Convert to cents
-            
+
             var service = new PaymentIntentService();
             PaymentIntent paymentIntent;
 
@@ -85,7 +85,7 @@ namespace Skinet.Service.Implementation
                             Amount = totalAmount,
                             Currency = "usd",
                             PaymentMethodTypes = new List<string> { "card" },
-                            PaymentMethod = "pm_card_visa", 
+                            PaymentMethod = "pm_card_visa",
                             Confirm = true // Auto-confirm the payment intent
                         };
 
@@ -157,7 +157,7 @@ namespace Skinet.Service.Implementation
 
                 if (paymentIntent.Status == "requires_confirmation")
                 {
-                   
+
                     await service.ConfirmAsync(paymentIntentId);
                     paymentIntent = await service.GetAsync(paymentIntentId); // Refresh status
                 }

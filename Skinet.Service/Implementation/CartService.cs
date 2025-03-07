@@ -1,5 +1,5 @@
 ﻿using Skinet.Core.Entities.Cart;
-using Skinet.Core.Interfaces;
+using Skinet.Repository.Interfaces;
 using Skinet.Service.Interfaces;
 
 namespace Skinet.Service.Implementation

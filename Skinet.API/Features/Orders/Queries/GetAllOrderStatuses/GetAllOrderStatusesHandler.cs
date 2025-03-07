@@ -12,7 +12,7 @@ namespace Skinet.API.Features.Orders.Queries.GetAllOrderStatuses
         {
             _odeOrderService = odeOrderService;
         }
-        public async  Task<BaseResponse<List<string>>> Handle(GetAllOrderStatusesQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<List<string>>> Handle(GetAllOrderStatusesQuery request, CancellationToken cancellationToken)
         {
             var statuses = await _odeOrderService.GetAllOrderStatuses();
             if (statuses is null || !statuses.Any())
@@ -32,7 +32,7 @@ namespace Skinet.API.Features.Orders.Queries.GetAllOrderStatuses
                 StatusCode = 200,
                 Count = statuses.Count
             };
-            
+
         }
     }
 }

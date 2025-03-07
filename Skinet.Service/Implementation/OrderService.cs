@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Skinet.Core.Entities;
 using Skinet.Core.Entities.Cart;
 using Skinet.Core.Entities.Order;
 using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
+using Skinet.Repository.Interfaces;
 using Skinet.Service.Interfaces;
 using Stripe;
 using Product = Skinet.Core.Entities.Product;

@@ -2,9 +2,9 @@
 using MediatR;
 using Skinet.Core.Entities.Cart;
 using Skinet.Core.Helper;
+using Skinet.Core.Interfaces;
 using Skinet.Service.Interfaces;
 using System.Security.Claims;
-using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Features.Carts.Commands.Update
 {
@@ -15,7 +15,7 @@ namespace Skinet.API.Features.Carts.Commands.Update
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UpdateCartCommandHandler(IOrderService orderService,ICartService cartService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public UpdateCartCommandHandler(IOrderService orderService, ICartService cartService, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _orderService = orderService;
             _cartService = cartService;

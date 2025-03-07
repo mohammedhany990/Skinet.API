@@ -1,8 +1,8 @@
-﻿using System.Security.Claims;
-using MediatR;
+﻿using MediatR;
 using Skinet.API.DTOs.Identity;
 using Skinet.Core.Helper;
 using Skinet.Service.Abstracts;
+using System.Security.Claims;
 
 namespace Skinet.API.Features.Users.Queries
 {

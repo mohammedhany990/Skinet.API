@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using Skinet.API.DTOs.Identity;
+using Skinet.Core.Entities.Identity;
 using Skinet.Core.Helper;
 using Skinet.Service.Abstracts;
 using System.Security.Claims;
-using Skinet.Core.Entities.Identity;
 
 namespace Skinet.API.Features.Users.Commands.UpdateAddress
 {
@@ -38,9 +37,9 @@ namespace Skinet.API.Features.Users.Commands.UpdateAddress
             bool isSuccess = "Address updated successfully." == result;
             return new BaseResponse<string>
             {
-                 Message = result,
-                 StatusCode = isSuccess? 200:400,
-                 Success = isSuccess
+                Message = result,
+                StatusCode = isSuccess ? 200 : 400,
+                Success = isSuccess
             };
         }
     }

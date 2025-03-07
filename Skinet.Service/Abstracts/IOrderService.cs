@@ -1,6 +1,4 @@
-﻿using Skinet.Core.Entities;
-using Skinet.Core.Entities.Order;
-using static Skinet.Service.Implementation.OrderService;
+﻿using Skinet.Core.Entities.Order;
 
 namespace Skinet.Core.Interfaces
 {

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.ProductBrands.Commands.Create;
 using Skinet.API.Features.ProductBrands.Commands.Delete;
 using Skinet.API.Features.ProductBrands.Commands.Update;
-using Skinet.API.Features.ProductBrands.Responses;
 using Skinet.API.Features.ProductBrands.Queries.Get;
 using Skinet.API.Features.ProductBrands.Queries.List;
+using Skinet.API.Features.ProductBrands.Responses;
 using Skinet.API.Helper;
 using Skinet.Core.Helper;
 

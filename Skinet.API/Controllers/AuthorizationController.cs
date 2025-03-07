@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 using Skinet.Core.DTOs.Identity;
 using Skinet.Core.Entities.Identity;
 using Skinet.Core.Helper;
+using Skinet.Core.Interfaces;
 using Skinet.Service.Abstracts;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
-using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Controllers
 {
@@ -19,7 +19,7 @@ namespace Skinet.API.Controllers
         private readonly IAuthorizationServices _authorizationService;
         private readonly UserManager<AppUser> _userManager;
 
-        public AuthorizationController(IAuthService authService,IAuthorizationServices authorizationService, UserManager<AppUser> userManager)
+        public AuthorizationController(IAuthService authService, IAuthorizationServices authorizationService, UserManager<AppUser> userManager)
         {
             _authService = authService;
             _authorizationService = authorizationService;

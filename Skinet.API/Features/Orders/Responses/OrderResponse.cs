@@ -1,6 +1,4 @@
-﻿using Skinet.API.Features.Orders.Responses;
-
-namespace Skinet.API.Features.Orders.Responses
+﻿namespace Skinet.API.Features.Orders.Responses
 {
     public class OrderResponse
     {

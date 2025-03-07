@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore.Storage;
 using Skinet.Core.Entities;
-using Skinet.Core.Interfaces;
 using Skinet.Repository.Abstracts;
 using Skinet.Repository.Data;
 using StackExchange.Redis;
 using System.Collections;
+using Skinet.Repository.Interfaces;
 
 namespace Skinet.Repository.Implementation
 {

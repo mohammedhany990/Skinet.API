@@ -1,7 +1,7 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Skinet.Service.Abstracts;
+using System.Text;
 
 namespace Skinet.API.Helper
 {

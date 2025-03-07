@@ -1,5 +1,5 @@
-﻿using Skinet.Core.Interfaces;
-using Skinet.Repository.Abstracts;
+﻿using Skinet.Repository.Abstracts;
+using Skinet.Repository.Interfaces;
 using StackExchange.Redis;
 
 namespace Skinet.Repository.Implementation

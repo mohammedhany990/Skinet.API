@@ -1,10 +1,7 @@
-﻿
-using Skinet.Core.Entities;
-
-namespace Skinet.Core.Interfaces
+﻿namespace Skinet.Repository.Interfaces
 {
     public interface IEmailSettings
     {
-        void SendEmail(Email email);
+        void SendEmail(Core.Entities.Email email);
     }
 }

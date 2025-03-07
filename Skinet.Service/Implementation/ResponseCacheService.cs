@@ -1,12 +1,6 @@
 ﻿using Skinet.Service.Abstracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using StackExchange.Redis;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Text.Json;
 
 namespace Skinet.Service.Implementation
 {

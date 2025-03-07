@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Skinet.API.Features.Orders.Commands.CancelOrder;
 using Skinet.API.Features.Orders.Commands.Create;
 using Skinet.API.Features.Orders.Commands.UpdateOrderStatus;
-using Skinet.API.Features.Orders.Responses;
 using Skinet.API.Features.Orders.Queries.GetAllOrderStatuses;
 using Skinet.API.Features.Orders.Queries.GetByIdSpecificOrderForUser;
 using Skinet.API.Features.Orders.Queries.GetDeliveryMethod;
 using Skinet.API.Features.Orders.Queries.GetOrdersForUser;
+using Skinet.API.Features.Orders.Responses;
 using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
@@ -18,12 +18,12 @@ namespace Skinet.API.Controllers
     public class OrdersController : ApiBaseController
     {
         private readonly IMediator _mediator;
-        public OrdersController( IMediator mediator)
+        public OrdersController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-       
+
         [HttpPost]
         [MapToApiVersion("1.0")]
         public async Task<ActionResult<BaseResponse<OrderResponse>>> CreateOrder(CreateOrderCommand command)
@@ -33,7 +33,7 @@ namespace Skinet.API.Controllers
         }
 
 
-        
+
         [CacheAttribute(300)]
         [MapToApiVersion("1.0")]
         [HttpGet]

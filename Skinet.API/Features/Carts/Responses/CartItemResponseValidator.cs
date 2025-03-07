@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Skinet.API.Features.Carts.Responses;
 
 namespace Skinet.API.Features.Carts.Responses
 {

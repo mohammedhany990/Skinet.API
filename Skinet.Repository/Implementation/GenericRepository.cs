@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Skinet.Core.Entities;
-using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
 using Skinet.Repository.Data;
 using System.Linq.Expressions;
+using Skinet.Repository.Interfaces;
 
 namespace Skinet.Repository.Implementation
 {

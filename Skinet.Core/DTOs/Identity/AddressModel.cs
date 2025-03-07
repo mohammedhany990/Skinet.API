@@ -1,10 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Skinet.API.DTOs.Identity
+﻿namespace Skinet.API.DTOs.Identity
 {
-    public  class AddressModel
+    public class AddressModel
     {
-      
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

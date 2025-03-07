@@ -1,7 +1,6 @@
 ﻿using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Skinet.API.DTOs.Identity;
 using Skinet.API.Features.Users.Commands.UpdateAddress;

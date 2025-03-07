@@ -1,6 +1,6 @@
 ﻿using Skinet.Core.Entities;
 
-namespace Skinet.Core.Interfaces
+namespace Skinet.Repository.Interfaces
 {
     public interface IUnitOfWork : IAsyncDisposable
     {

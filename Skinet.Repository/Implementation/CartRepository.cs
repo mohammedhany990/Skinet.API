@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using Skinet.Core.Entities;
+﻿using Skinet.Core.Entities;
 using Skinet.Core.Entities.Cart;
-using Skinet.Core.Interfaces;
 using Skinet.Core.Specifications;
+using Skinet.Repository.Interfaces;
 using StackExchange.Redis;
-using System.Text.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Skinet.Repository.Implementation

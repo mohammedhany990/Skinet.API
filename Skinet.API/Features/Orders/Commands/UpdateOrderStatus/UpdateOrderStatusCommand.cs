@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Skinet.Core.Entities.Order;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Features.Orders.Commands.UpdateOrderStatus

@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Skinet.API.DTOs.Identity;
-using Skinet.API.Features.Orders.Responses;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Features.Orders.Commands.Create

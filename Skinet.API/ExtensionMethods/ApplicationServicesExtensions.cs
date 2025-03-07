@@ -5,6 +5,7 @@ using Skinet.Core.Interfaces;
 using Skinet.Repository.Abstracts;
 using Skinet.Repository.Email;
 using Skinet.Repository.Implementation;
+using Skinet.Repository.Interfaces;
 using Skinet.Service.Abstracts;
 using Skinet.Service.Implementation;
 using Skinet.Service.Interfaces;
@@ -29,11 +30,11 @@ namespace Skinet.API.ExtensionMethods
             services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddScoped(typeof(IEmailSettings), typeof(EmailSettings));
             services.AddScoped(typeof(IAuthorizationServices), typeof(AuthorizationServices));
-            
-            
+
+
             services.AddSingleton(typeof(IResponseCacheService), typeof(ResponseCacheService));
-           
-            
+
+
             services.AddScoped(typeof(IUserService), typeof(UserService));
 
 

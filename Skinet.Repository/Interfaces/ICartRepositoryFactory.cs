@@ -1,4 +1,4 @@
-﻿using Skinet.Core.Interfaces;
+﻿using Skinet.Repository.Interfaces;
 
 namespace Skinet.Repository.Abstracts
 {

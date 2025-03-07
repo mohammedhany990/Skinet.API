@@ -4,8 +4,8 @@ using Skinet.Core.Interfaces;
 
 namespace Skinet.API.Features.Orders.Commands.UpdateOrderStatus
 {
-    
-    public class UpdateOrderStatusCommandHandler  :IRequestHandler<UpdateOrderStatusCommand, BaseResponse<string>>
+
+    public class UpdateOrderStatusCommandHandler : IRequestHandler<UpdateOrderStatusCommand, BaseResponse<string>>
     {
         private readonly IOrderService _orderService;
 

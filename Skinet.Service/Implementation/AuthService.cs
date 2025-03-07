@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Skinet.API.DTOs.Identity;
-using Skinet.API.ExtensionMethods;
 using Skinet.Core.DTOs.Identity;
 using Skinet.Core.Entities;
 using Skinet.Core.Entities.Identity;
@@ -16,6 +15,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Skinet.Repository.Interfaces;
 
 namespace Skinet.Service.Implementation
 {
@@ -47,7 +47,7 @@ namespace Skinet.Service.Implementation
         public async Task<bool> IsUserExistsByIdAsync(string userId)
         {
             return await _userManager.Users.AnyAsync(i => i.Id == userId);
-        } 
+        }
 
 
         private void SetRefreshTokenInCookie(string refreshToken, DateTime expire)
@@ -229,7 +229,7 @@ namespace Skinet.Service.Implementation
             };
         }
 
-       
+
 
         public async Task<bool> CheckExistingUserByEmailAsync(string email)
         {

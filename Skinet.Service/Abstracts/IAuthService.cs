@@ -1,6 +1,5 @@
 ﻿using Skinet.API.DTOs.Identity;
 using Skinet.Core.DTOs.Identity;
-using Skinet.Core.Entities.Identity;
 using Skinet.Core.Helper;
 namespace Skinet.Core.Interfaces
 {

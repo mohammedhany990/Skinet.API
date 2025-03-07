@@ -10,7 +10,6 @@ using Skinet.API.Features.Carts.Commands.UpdateItemQuantity;
 using Skinet.API.Features.Carts.Queries.GetCart;
 using Skinet.API.Features.Carts.Queries.GetCartTotal;
 using Skinet.API.Features.Carts.Responses;
-using Skinet.API.Helper;
 using Skinet.Core.Helper;
 
 namespace Skinet.API.Controllers
@@ -33,7 +32,7 @@ namespace Skinet.API.Controllers
             var response = await _mediator.Send(new GetCartQuery());
             return Ok(response);
         }
-       
+
 
         [HttpGet("get-total")]
         [MapToApiVersion("1.0")]

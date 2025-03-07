@@ -18,12 +18,12 @@ namespace Skinet.API.Features.Orders.Commands.CancelOrder
             var result = await _orderService.CancelOrderAsync(request.OrderId);
 
             int statusCode;
-            bool isSuccess =false;
+            bool isSuccess = false;
 
             switch (result)
             {
                 case "Order cancelled successfully.":
-                    statusCode = StatusCodes.Status200OK; 
+                    statusCode = StatusCodes.Status200OK;
                     isSuccess = true;
                     break;
 
@@ -33,7 +33,7 @@ namespace Skinet.API.Features.Orders.Commands.CancelOrder
 
                 case "Order is already cancelled.":
                 case "Order cannot be cancelled because it has already been shipped.":
-                    statusCode = StatusCodes.Status400BadRequest; 
+                    statusCode = StatusCodes.Status400BadRequest;
                     break;
 
                 case "Failed to cancel the payment intent.":
@@ -42,7 +42,7 @@ namespace Skinet.API.Features.Orders.Commands.CancelOrder
                     break;
 
                 default:
-                    statusCode = StatusCodes.Status500InternalServerError; 
+                    statusCode = StatusCodes.Status500InternalServerError;
                     break;
             }
 
