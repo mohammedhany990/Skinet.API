@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.API", "Skinet.API\Sk
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Core", "Skinet.Core\Skinet.Core.csproj", "{5D67C62E-1F6B-48AB-88E6-18B5C0720862}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Infrastructure", "Skinet.Repository\Skinet.Infrastructure.csproj", "{7F2C25AF-BBD5-492B-A32C-907AB1A28169}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Repository", "Skinet.Repository\Skinet.Repository.csproj", "{7F2C25AF-BBD5-492B-A32C-907AB1A28169}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skinet.Service", "Skinet.Service\Skinet.Service.csproj", "{34A0A787-7217-40D2-9D00-A4C4F00F95F0}"
 EndProject
