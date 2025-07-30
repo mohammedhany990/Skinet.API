@@ -28,7 +28,7 @@ A scalable and modular e-commerce backend API built with ASP.NET Core, following
 1. Clone the repository:  
    ```bash
    git clone https://github.com/mohammedhany990/Skinet.API.git
-````
+
 
 2. Configure the database connection string and Redis in `appsettings.json`.
 3. Set up Stripe API keys in the configuration.
